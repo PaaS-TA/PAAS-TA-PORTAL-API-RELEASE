@@ -1,0 +1,7 @@
+---
+name: swift-all-in-one
+
+dependencies:
+
+files:
+  - swift-all-in-one/swift-all-in-one.tar.gz

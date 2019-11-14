@@ -1,0 +1,84 @@
+---
+name: paas-ta-portal-common-api
+
+templates:
+  bin/service_ctl.erb: bin/service_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh: data/properties.sh
+  data/application.yml.erb: data/application.yml
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - java
+  - paas-ta-portal-common-api
+
+provides:
+  - {name: paas-ta-portal-common-api-link, type: paas-ta-portal-common-api, properties: [server.port, infra.admin.enable, datasource.cc.driver-class-name, datasource.cc.url, datasource.cc.username, datasource.cc.password, datasource.portal.driver-class-name, datasource.portal.username, datasource.portal.password, datasource.uaa.driver-class-name, datasource.uaa.url, datasource.uaa.username, datasource.uaa.password, mail.smtp.host, mail.smtp.port, mail.smtp.username, mail.smtp.password, mail.smtp.useremail, mail.smtp.properties.auth, mail.smtp.properties.starttls.enable, mail.smtp.properties.starttls.required, mail.smtp.properties.authUrl, mail.smtp.properties.charset, mail.smtp.properties.subject]}
+
+consumes:
+  - name: paas-ta-portal-registration-link
+    type: paas-ta-portal-registration
+  - name: paas-ta-portal-gateway-link
+    type: paas-ta-portal-gateway 
+  - name: mariadb-link
+    type: mariadb
+
+properties:
+  java_opts:
+    description: 'Luncher Java option'
+    default: '-Xms512m -Xmx1024m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -Dfile.encoding=UTF-8 -XX:+UseConcMarkSweepGC -XX:SoftRefLRUPolicyMSPerMB=50 -Dsun.io.useCanonCaches=false -Djava.net.preferIPv4Stack=true -XX:+HeapDumpOnOutOfMemoryError -XX:-OmitStackTraceInFastThrow -Xverify:none -XX:ErrorFile=/var/vcap/sys/log/java_error_in_idea_%p.log -XX:HeapDumpPath=/var/vcap/sys/log/java_error_in_idea.hprof'
+  server.port:
+    description: 'Enter the Service Port'
+    default: '2223'
+  infra.admin.enable:
+    description: 'Change it to true only if an infra-admin has been created.'
+    default: false
+  datasource.cc.driver-class-name:
+    description: 'Enter the drive class name of ccdb.'
+  datasource.cc.url:
+    description: 'Please enter the connection address of ccdb.'
+  datasource.cc.username:
+    description: 'Enter the user id of ccdb.'
+  datasource.cc.password:
+    description: 'Enter the ccdb user password.'
+  datasource.portal.driver-class-name:
+    description: 'Enter the drive class name of portaldb.'
+  datasource.portal.username:
+    description: 'Enter the user id of portaldb.'
+  datasource.portal.password:
+    description: 'Enter the portaldb user password.'
+  datasource.uaa.driver-class-name:
+    description: 'Enter the drive class name of uaadb.'
+  datasource.uaa.url:
+    description: 'Please enter the connection address of uaadbb.'
+  datasource.uaa.username:
+    description: 'Enter the user id of uaadb.'
+  datasource.uaa.password:
+    description: 'Enter the uaadb user password.'
+  mail.smtp.host:
+    description: 'Enter the smtp host address.'
+  mail.smtp.port:
+    description: 'Enter the smtp host port.'
+  mail.smtp.username:
+    description: 'Please enter your smtp account.'
+  mail.smtp.password:
+    description: 'Please enter your smtp account password.'
+  mail.smtp.useremail:
+    description: 'Enter your smtp email address'
+  mail.smtp.properties.auth:
+    description: 'Please enter smtp server login attempt.'
+    default: true
+  mail.smtp.properties.starttls.enable:
+    description: 'Please enter smtp starttls used.'
+    default: true
+  mail.smtp.properties.starttls.required:
+    description: 'Please enter smtp required used.'
+    default: false
+  mail.smtp.properties.authUrl:
+    description: 'Please enter your portal address..'
+    default: false
+  mail.smtp.properties.charset:
+    description: 'Please enter charset information.'
+    default: 'UTF-8'
+  mail.smtp.properties.subject:
+    description: 'Please enter a title to use.'

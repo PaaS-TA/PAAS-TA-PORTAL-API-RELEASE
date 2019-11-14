@@ -1,0 +1,9 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+PACKAGE_NAME=swift-all-in-one
+
+#deb files
+tar -xvf swift-all-in-one/swift-all-in-one.tar.gz
+cp -r ${BOSH_COMPILE_TARGET}/swift-all-in-one/* ${BOSH_INSTALL_TARGET}/.
+

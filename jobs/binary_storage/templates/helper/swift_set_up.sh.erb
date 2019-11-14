@@ -1,0 +1,70 @@
+#!/bin/bash
+
+set -e
+
+
+echo "---------------------------------------------Swift Install Start"
+mkdir /var/vcap/store/srv
+mkdir -p /var/vcap/store/srv/1/node/sdb1
+
+#chown -R vcap:vcap /var/vcap/store/mnt/*
+chown -R vcap:vcap /var/vcap/store/srv/*
+
+
+mkdir -p /var/cache/swift
+chown -R vcap:vcap /var/cache/swift*
+
+mkdir -p /var/run/swift
+chown -R vcap:vcap /var/run/swift
+
+mkdir -p /var/log/swift
+chown -R vcap:vcap /var/log/swift
+
+cp /var/vcap/packages/swift-all-in-one/swift/doc/saio/rsyncd.conf /etc/
+sed -i "s/<your-user-name>/vcap/" /etc/rsyncd.conf
+for x in {1..1}; do find /etc/rsyncd.conf | xargs sudo sed -i "s/\/srv\/$x\/node/\/var\/vcap\/store\/srv\/$x\/node/"; done
+sed -i "s/RSYNC_ENABLE=false/RSYNC_ENABLE=true/" /etc/default/rsync
+
+cp -r /var/vcap/packages/swift-all-in-one/swift/doc/saio/swift/* /etc/swift/.
+
+sed -e 's/bind_port = 8080/bind_port = <%=p('binary_storage.proxy_port')%>/' -i /etc/swift/proxy-server.conf
+
+find /etc/swift/ -name \*.conf | xargs sudo sed -i "s/<your-user-name>/vcap/"
+for x in {1..1}; do find /etc/swift/ -name \*.conf | xargs sudo sed -i "s/\/srv\/$x\/node/\/var\/vcap\/store\/srv\/$x\/node/"; done
+chown -R vcap:vcap /etc/swift/*
+
+find /etc/swift/ -name \*.conf | xargs sudo sed -i "s/bind_ip = 127.0.0.1/bind_ip = 0.0.0.0/"
+
+chown -R vcap:vcap /etc/swift/*
+
+
+mkdir -p /home/vcap/bin
+cp /var/vcap/packages/swift-all-in-one/swift/doc/saio/bin/* /home/vcap/bin
+chmod +x /home/vcap/bin/*
+
+export PATH=$PATH:/usr/local/bin
+
+sed '/602/d' -i /home/vcap/bin/remakerings
+sed '/603/d' -i /home/vcap/bin/remakerings
+sed '/604/d' -i /home/vcap/bin/remakerings
+
+bash /home/vcap/bin/remakerings
+
+
+chown -R root:vcap /etc/swift
+
+
+sudo systemctl enable rsync
+sudo systemctl restart rsync
+sleep 3
+sudo systemctl enable memcached
+sudo systemctl restart memcached
+sleep 3
+
+
+
+swift-init main start
+echo "---------------------------------------------------------------------"
+echo "---------------------------------------------Swift Install Success"
+echo "---------------------------------------------------------------------"
+

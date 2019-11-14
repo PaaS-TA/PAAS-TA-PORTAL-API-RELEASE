@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+set -e
+echo "---------------------------------------------Keystone Install Start"
+JOB_NAME=binary_storage
+KEYSTONE_CONF_DIR=/var/vcap/jobs/$JOB_NAME/helper/keystone_install
+
+
+#Configuration Section
+sed 's/#admin_token = <None>/admin_token = ADMIN_TOKEN/' -i /etc/keystone/keystone.conf
+sed 's/connection = sqlite:\/\/\/\/var\/lib\/keystone\/keystone.db/connection = mysql:\/\/keystone:swiftstack@<%= link('mariadb-link').instances[0].address %>:<%=link('mariadb-link').p('mariadb.port') %>\/keystone/' -i /etc/keystone/keystone.conf
+
+#enable logs
+sed 's/#debug = false/debug = true/g' -i /etc/keystone/keystone.conf
+sed 's/#verbose = false/verbose = true/g' -i /etc/keystone/keystone.conf
+sed 's/#log_file = <None>/log_file = keystone.log/g' -i /etc/keystone/keystone.conf
+sed 's/log_dir = \/var\/log\/keystone/log_dir = \/var\/vcap\/store\/log\/keystone/g' -i /etc/keystone/keystone.conf
+chown -R keystone:keystone /etc/keystone
+
+#Create log folder
+mkdir -p /var/vcap/store/log/keystone
+chown -R keystone:keystone /var/vcap/store/log/keystone
+
+#Populate Data into keystone DB
+keystone-manage db_sync
+sleep 5
+
+chown -R keystone:keystone /var/vcap/store/log/keystone
+
+systemctl stop keystone
+sleep 1
+
+systemctl start keystone
+sleep 3
+
+
+keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
+
+################################################
+
+cd $KEYSTONE_CONF_DIR
+
+
+function get_id () {
+    echo `"$@" | grep ' id ' | awk '{print $4}'`
+}
+
+
+#
+# Default tenant
+#
+echo "---------------------------------------------Endpoint Install Start"
+
+if [[ -z "$DISABLE_ENDPOINTS" ]]; then
+    keystone-manage bootstrap --bootstrap-password ADMIN_PASS \
+    --bootstrap-admin-url http://localhost:35357/v3/ \
+    --bootstrap-internal-url http://localhost:5000/v3/ \
+    --bootstrap-public-url http://<%= link('binary_storage-link').instances[0].address%>:5000/v3/ \
+    --bootstrap-region-id paasta
+fi
+
+echo "---------------------------------------------Endpoint Install End"
+
+export OS_USERNAME=admin
+export OS_PASSWORD=ADMIN_PASS
+export OS_PROJECT_NAME=admin
+export OS_USER_DOMAIN_NAME=Default
+export OS_PROJECT_DOMAIN_NAME=Default
+export OS_AUTH_URL=http://localhost:35357/v3
+export OS_IDENTITY_API_VERSION=3
+
+echo "---------------------------------------------Swift Project & User Install Start"
+DEMO_TENANT=$(get_id openstack project create --description "Default project" demo)
+
+ADMIN_USER=$(get_id openstack user create --password secret --project demo paasta)
+
+#ADMIN_ROLE=$(get_id openstack role create admin)
+
+openstack role add --project demo --user paasta admin
+
+#
+# Service tenant
+#
+SERVICE_TENANT=$(get_id openstack project create --description "Service Tenant" service)
+
+SWIFT_USER=$(get_id openstack user create --password password --project service swift)
+
+openstack role add --project service --user swift admin
+
+#
+# Keystone service
+#
+KEYSTONE_SERVICE=$(get_id openstack service create --description="Keystone Identity Service" --name=keystone identity)
+
+echo "---------------------------------------------Swift Project & User Install End"
+
+
+echo "---------------------------------------------------------------------"
+echo "---------------------------------------------Keystone Install Success"
+echo "---------------------------------------------------------------------"
+
