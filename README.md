@@ -31,10 +31,9 @@ src <br>
 ├── python <br>
 │     └── Python-2.7.8.tgz <br>
 ├── swift-all-in-one <br>
-│     └── swift-2.2.0.tar.gz <br>
-│     └── swift-all-in-one-deb.tar.gz <br>
-│     └── swift-all-in-one-whl.tar.gz <br>
-│     └── swiftonfile-2.5.0.tar.gz <br>
+│     └── deb-files <br>
+│     └── swift <br>
+│     └── whl-files <br>
 └── README.md <br>
 
 
