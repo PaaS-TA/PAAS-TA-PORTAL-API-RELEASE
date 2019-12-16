@@ -37,7 +37,7 @@ src <br>
 └── README.md <br>
 
 
-***paasta 5.0 공개시 사용 가능***
+***PaaS-TA 5.0 공개시 사용 가능***
 
 ```
 $ cd ~/
