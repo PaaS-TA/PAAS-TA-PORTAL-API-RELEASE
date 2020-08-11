@@ -17,11 +17,11 @@ templates:
   config/keystone_install/keystone_middleware_settings: helper/keystone_install/keystone_middleware_settings
   config/keystone_install/keystone-init.d: helper/keystone_install/keystone-init.d
   config/keystone_install/service_endpoint: helper/keystone_install/service_endpoint
-  config/keystone_install/tenant_token: helper/keystone_install/tenant_token
-  config/keystone_install/default_keystone_config.sh: helper/keystone_install/default_keystone_config.sh
+  config/keystone_install/tenant_token.erb: helper/keystone_install/tenant_token
+  config/keystone_install/default_keystone_config.sh.erb: helper/keystone_install/default_keystone_config.sh
 
   config/keystone/etc/default_catalog.templates: config/keystone/etc/default_catalog.templates
-  config/keystone/etc/keystone.conf.sample: config/keystone/etc/keystone.conf.sample
+  config/keystone/etc/keystone.conf.sample.erb: config/keystone/etc/keystone.conf
   config/keystone/etc/keystone-paste.ini: config/keystone/etc/keystone-paste.ini
   config/keystone/etc/logging.conf.sample: config/keystone/etc/logging.conf.sample
   config/keystone/etc/policy.json: config/keystone/etc/policy.json

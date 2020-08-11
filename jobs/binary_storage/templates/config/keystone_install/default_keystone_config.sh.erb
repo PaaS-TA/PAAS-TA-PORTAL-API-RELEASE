@@ -51,11 +51,11 @@ echo
 echo "================= Test v2.0 API to get TOKEN/Service Catalog of user swiftstack =================="
 sleep 2
 
-curl -d '{"auth":{"passwordCredentials":{"username": "swiftstack", "password": "password"},"tenantName":"SS"}}' -H "Content-type: application/json" http://localhost:5000/v2.0/tokens | python -mjson.tool
+curl -d '{"auth":{"passwordCredentials":{"username": "swiftstack", "password": "password"},"tenantName":"SS"}}' -H "Content-type: application/json" http://localhost:<%=p('binary_storage.auth_port')%>/v2.0/tokens | python -mjson.tool
 
 sleep 2
 echo
 echo "================== Test Keystone V3 API to get TOKEN/Service Catalog of user swiftstack ====================="
 
-curl -d '{"auth":{"identity":{"methods":["password"],"password":{"user":{"domain":{"name":"default"},"name":"swiftstack","password":"password"}}},"scope":{"project":{"domain":{"name":"default"},"name":"SS"}}}}' -H "Content-type: application/json" http://localhost:5000/v3/auth/tokens | python -mjson.tool
+curl -d '{"auth":{"identity":{"methods":["password"],"password":{"user":{"domain":{"name":"default"},"name":"swiftstack","password":"password"}}},"scope":{"project":{"domain":{"name":"default"},"name":"SS"}}}}' -H "Content-type: application/json" http://localhost:<%=p('binary_storage.auth_port')%>/v3/auth/tokens | python -mjson.tool
 

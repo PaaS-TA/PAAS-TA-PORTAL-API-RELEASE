@@ -4,6 +4,7 @@ set -e
 echo "---------------------------------------------Keystone Install Start"
 JOB_NAME=binary_storage
 KEYSTONE_CONF_DIR=/var/vcap/jobs/$JOB_NAME/helper/keystone_install
+sudo cp /var/vcap/jobs/binary_storage/config/keystone/etc/keystone.conf /etc/keystone/
 
 
 #Configuration Section
@@ -54,8 +55,8 @@ echo "---------------------------------------------Endpoint Install Start"
 if [[ -z "$DISABLE_ENDPOINTS" ]]; then
     keystone-manage bootstrap --bootstrap-password ADMIN_PASS \
     --bootstrap-admin-url http://localhost:35357/v3/ \
-    --bootstrap-internal-url http://localhost:5000/v3/ \
-    --bootstrap-public-url http://<%= link('binary_storage-link').instances[0].address%>:5000/v3/ \
+    --bootstrap-internal-url http://localhost:<%=p('binary_storage.auth_port')%>/v3/ \
+    --bootstrap-public-url http://<%= link('binary_storage-link').instances[0].address%>:<%=p('binary_storage.auth_port')%>/v3/ \
     --bootstrap-region-id paasta
 fi
 
