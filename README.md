@@ -21,10 +21,12 @@
     ```   
     $ git clone https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE.git   
     $ cd PAAS-TA-PORTAL-API-RELEASE   
-    ```    
-    ## download source files   
+    ```
+  - Download & Copy "source files" into the src directory   
+    ```   
+    ## download source files      
     $ wget -O src.zip http://45.248.73.44/index.php/s/GkTHaTFz6a8KFaX/download   
-       
+         
     ## unzip download source files   
     $ unzip src.zip   
 
