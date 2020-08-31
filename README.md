@@ -1,8 +1,8 @@
-## PAAS-TA-PORTAL-API-RELASE  
+## PAAS-TA-PORTAL-API-RELEASE     
 
 ### Notices   
-- PAAS-TA-PORTAL-API-RELASE v2.0.0 은 PaaS-TA v5.0.1이하, portal-deployment v5.0.1 이하 version에서 사용.   
-- PAAS-TA-PORTAL-API-RELASE v2.0.1 은 PaaS-TA v5.0.2이상, portal-deployment v5.0.2 이상 version에서 사용.   
+- PAAS-TA-PORTAL-API-RELEASE v2.0.0 은 PaaS-TA v5.0.1이하, portal-deployment v5.0.1 이하 version에서 사용.   
+- PAAS-TA-PORTAL-API-RELEASE v2.0.1 은 PaaS-TA v5.0.2이상, portal-deployment v5.0.2 이상 version에서 사용.   
 
 ### PaaS-TA Portal API Release Configuration   
 
