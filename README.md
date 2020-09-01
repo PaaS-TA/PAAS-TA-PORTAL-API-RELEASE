@@ -1,8 +1,12 @@
 ## PAAS-TA-PORTAL-API-RELEASE     
 
-### Notices   
-- PAAS-TA-PORTAL-API-RELEASE v2.0.0 은 PaaS-TA v5.0.1이하, portal-deployment v5.0.1 이하 version에서 사용.   
-- PAAS-TA-PORTAL-API-RELEASE v2.0.1 은 PaaS-TA v5.0.2이상, portal-deployment v5.0.2 이상 version에서 사용.   
+### Notices     
+  - Use PAAS-TA-PORTAL-API-RELEASE >= v.2.0.1    
+    - PaaS-TA >= v.5.0.2    
+    - portal-deployment >= v5.0.2    
+  - Use PAAS-TA-PORTAL-API-RELEASE =< v.2.0.0    
+    - PaaS-TA =< v.5.0.1   
+    - portal-deployment =< v5.0.1    
 
 ### PaaS-TA Portal API Release Configuration   
 
@@ -67,3 +71,5 @@
     ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-portal-api-release-<VERSION>.tgz)   
     $ bosh -e <bosh_name> create-release --name=paasta-portal-api-release --sha2 --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force   
     ```   
+### Deployment
+- https://github.com/PaaS-TA/portal-deployment   
