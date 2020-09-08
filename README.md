@@ -44,7 +44,7 @@
       ├── paas-ta-portal-registration   
       │   └── paas-ta-portal-registration.jar   
       ├── paas-ta-portal-storage-api   
-      │   └── paas-ta-portal-storage-api.jar   
+      │   └── paas-ta-portal-storage-api.jar (20-09-08 update)
       ├── paas-ta-portal-webadmin   
       │   └── paas-ta-portal-webadmin.war   
       ├── paas-ta-portal-webuser   
