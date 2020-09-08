@@ -75,11 +75,14 @@ objectStorage:
     tenantName: <%= p('objectStorage.swift.tenantName')%>
     username: <%= p('objectStorage.swift.username')%>
     password: <%= p('objectStorage.swift.password')%>
-    authUrl: http://<%= link('binary_storage-link').instances[0].address%>:<%= link('binary_storage-link').p('binary_storage.auth_port') %>/v2.0/tokens
+    authUrl: http://<%= link('binary_storage-link').instances[0].address%>:5000/v2.0/tokens
     authMethod: <%= p('objectStorage.swift.authMethod')%>
     preferredRegion: <%= p('objectStorage.swift.preferredRegion')%>
     container: <%= p('objectStorage.swift.container')%>
-
+    user:
+      app:
+        size:
+          mb: <%= p('objectStorage.swift.user.app.size.mb')%>
 paasta:
   portal:
     storage:
