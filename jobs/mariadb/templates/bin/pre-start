@@ -4,8 +4,8 @@ set -e
 
 DATA_DIR=/var/vcap/store/mariadb-data
 
-echo "---------------------------------------------pre-start Start"
 if [ ! -d "$DATA_DIR" ]; then
+
   JOB_NAME=mariadb
   BASE_DIR=/var/vcap/store/$JOB_NAME
   PKG_NAME=mariadb
@@ -25,5 +25,5 @@ if [ ! -d "$DATA_DIR" ]; then
   sudo chown -R root .
   sudo ./scripts/mysql_install_db --defaults-file=$CONF_FILE --user=vcap
   echo 'export PATH=$PATH:/'$BASE_DIR'/bin/' >> /home/vcap/.bashrc
+
 fi
-echo "---------------------------------------------pre-start end"

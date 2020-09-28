@@ -16,6 +16,10 @@ if [ ! -d "$DATA_DIR" ]; then
   sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password <%= p("mariadb.admin_user.password") %>'
 
 
+
+
+
+
   # log dir chmod
   chmod 771 /var/log
 
@@ -32,6 +36,7 @@ if [ ! -d "$DATA_DIR" ]; then
   # insatll openstack-swift dependencies
   pip install --no-index --find-links=$WHEEL_DIR -r $SWIFT_PKG_DIR/requirements.txt
 
+  echo "---------------------------------------------Install Files End"
 
   # install openstack-swift
   cd $SWIFT_PKG_DIR
@@ -41,5 +46,46 @@ if [ ! -d "$DATA_DIR" ]; then
   # swift setup
   bash $JOB_DIR/helper/swift_set_up.sh
 
-  echo "---------------------------------------------Install Files End"
+  # install keystone
+  bash $JOB_DIR/helper/keystone_install/keystone_install.sh
+
+  sleep 10
+
+# keystone service, tenant, user create
+  export OS_USERNAME=swift
+  export OS_PASSWORD=password
+  export OS_PROJECT_NAME=service
+  export OS_USER_DOMAIN_NAME=default
+  export OS_PROJECT_DOMAIN_NAME=default
+  export OS_AUTH_URL=http://localhost:35357/v3
+  export OS_IDENTITY_API_VERSION=3
+
+  echo "---------------------------------------------Service Install Start"
+
+  openstack service create --name=swift --description="Swift Service" object-store
+  openstack role add --project service --user swift admin
+
+
+  <% p('binary_storage.tenantname').each_with_index do | tenantname, index| %>
+   openstack project create --description "<%= p("binary_storage.binary_desc")[index]%>" <%= tenantname %>
+   openstack user create --password <%= p("binary_storage.password")[index]%> --project <%= tenantname %> --email "<%= p("binary_storage.email")[index]%>" <%= p("binary_storage.username")[index]%>
+   openstack role add --project service --user <%= p("binary_storage.username")[index]%> admin
+  <% end %>
+
+  openstack endpoint create --region paasta swift public http://<%= link('binary_storage-link').instances[0].address%>:<%= p("binary_storage.proxy_port") %>/v1/AUTH_%\(project_id\)s
+  #openstack endpoint create --region paasta swift admin http://<%= link('binary_storage-link').instances[0].address%>:<%= p("binary_storage.proxy_port") %>/v1
+  #openstack endpoint create --region paasta swift internal http://<%= link('binary_storage-link').instances[0].address%>:<%= p("binary_storage.proxy_port") %>/v1/AUTH_%\(project_id\)s
+
+
+  #openstack endpoint create --region paasta swift public http://localhost:<%= p("binary_storage.proxy_port") %>/v1/AUTH_%\(project_id\)s
+  openstack endpoint create --region paasta swift admin http://localhost:<%= p("binary_storage.proxy_port") %>/v1
+  openstack endpoint create --region paasta swift internal http://localhost:<%= p("binary_storage.proxy_port") %>/v1/AUTH_%\(project_id\)s
+
+
+  echo "---------------------------------------------Service Install End"
+  echo "---------------------------------------------------------------------"
+
+  sleep 3
+  echo "---------------------------------------------Service Install Succecc"
+  echo "---------------------------------------------------------------------"
 fi

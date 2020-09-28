@@ -4,17 +4,7 @@ set -e
 echo "---------------------------------------------Keystone Install Start"
 JOB_NAME=binary_storage
 KEYSTONE_CONF_DIR=/var/vcap/jobs/$JOB_NAME/helper/keystone_install
-
-
-#Configuration Section
-sed 's/#admin_token = <None>/admin_token = ADMIN_TOKEN/' -i /etc/keystone/keystone.conf
-sed 's/connection = sqlite:\/\/\/\/var\/lib\/keystone\/keystone.db/connection = mysql:\/\/keystone:swiftstack@<%= link('mariadb-link').instances[0].address %>:<%=link('mariadb-link').p('mariadb.port') %>\/keystone/' -i /etc/keystone/keystone.conf
-
-#enable logs
-sed 's/#debug = false/debug = true/g' -i /etc/keystone/keystone.conf
-sed 's/#verbose = false/verbose = true/g' -i /etc/keystone/keystone.conf
-sed 's/#log_file = <None>/log_file = keystone.log/g' -i /etc/keystone/keystone.conf
-sed 's/log_dir = \/var\/log\/keystone/log_dir = \/var\/vcap\/store\/log\/keystone/g' -i /etc/keystone/keystone.conf
+sudo cp /var/vcap/jobs/binary_storage/config/keystone/etc/keystone.conf /etc/keystone/
 chown -R keystone:keystone /etc/keystone
 
 #Create log folder
@@ -54,8 +44,8 @@ echo "---------------------------------------------Endpoint Install Start"
 if [[ -z "$DISABLE_ENDPOINTS" ]]; then
     keystone-manage bootstrap --bootstrap-password ADMIN_PASS \
     --bootstrap-admin-url http://localhost:35357/v3/ \
-    --bootstrap-internal-url http://localhost:5000/v3/ \
-    --bootstrap-public-url http://<%= link('binary_storage-link').instances[0].address%>:5000/v3/ \
+    --bootstrap-internal-url http://localhost:<%=p('binary_storage.auth_port')%>/v3/ \
+    --bootstrap-public-url http://<%= link('binary_storage-link').instances[0].address%>:<%=p('binary_storage.auth_port')%>/v3/ \
     --bootstrap-region-id paasta
 fi
 

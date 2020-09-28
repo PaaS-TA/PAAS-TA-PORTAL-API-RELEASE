@@ -1,11 +1,24 @@
 ## PAAS-TA-PORTAL-API-RELEASE     
 
 ### Notices     
-  - Use PAAS-TA-PORTAL-API-RELEASE = v.2.0.0
+  - Use PAAS-TA-PORTAL-API-RELEASE >= v.2.0.1    
+    - PaaS-TA >= v.5.0.2    
+    - portal-deployment >= v5.0.2    
+  - Use PAAS-TA-PORTAL-API-RELEASE =< v.2.0.0    
+    - PaaS-TA =< v.5.0.1   
+    - portal-deployment =< v5.0.1    
 
 ### PaaS-TA Portal API Release Configuration   
 
-  - portal-infra : 1 machine   
+  - binary_storage : 1 machine   
+  - haproxy : 1 machine   
+  - mariadb : 1 machine   
+  - paas-ta-portal-registration : 1 machine   
+  - paas-ta-portal-gateway : 1 machine   
+  - paas-ta-portal-api : 1 machine   
+  - paas-ta-portal-common-api : 1 machine   
+  - paas-ta-portal-log-api : 1 machine   
+  - paas-ta-portal-storage-api : 1 machine   
 
 ### Create PaaS-TA Portal API Release   
   - Download the latest PaaS-TA Portal API Release   
@@ -15,16 +28,14 @@
     ```
   - Download & Copy "source files" into the src directory   
     ```   
-    ## download source files (20-09-09 update)     
-    $ wget -O src.zip http://45.248.73.44/index.php/s/XzkNnHaPjbpHNDi/download   
-
+    ## download source files      
+    $ wget -O src.zip http://45.248.73.44/index.php/s/GkTHaTFz6a8KFaX/download   
+         
     ## unzip download source files   
     $ unzip src.zip   
 
     ## final src directory   
-    src
-      ├── apache2
-      │   └── httpd-2.2.25.tar.gz
+    src   
       ├── haproxy   
       │   └── haproxy-1.6.5.tar.gz   
       ├── java   
@@ -44,7 +55,7 @@
       ├── paas-ta-portal-registration   
       │   └── paas-ta-portal-registration.jar   
       ├── paas-ta-portal-storage-api   
-      │   └── paas-ta-portal-storage-api.jar (20-09-09 update)
+      │   └── paas-ta-portal-storage-api.jar   
       ├── paas-ta-portal-webadmin   
       │   └── paas-ta-portal-webadmin.war   
       ├── paas-ta-portal-webuser   
@@ -56,7 +67,7 @@
     ```   
   - Create PaaS-TA Portal API Release   
     ```   
-    ## <VERSION> :: release version (e.g. 2.0-min)   
+    ## <VERSION> :: release version (e.g. 2.0.1)   
     ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-portal-api-release-<VERSION>.tgz)   
     $ bosh -e <bosh_name> create-release --name=paasta-portal-api-release --sha2 --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force   
     ```   
