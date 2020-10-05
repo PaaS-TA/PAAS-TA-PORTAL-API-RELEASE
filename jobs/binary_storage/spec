@@ -3,6 +3,7 @@ name: binary_storage
 
 templates:
   bin/install.sh.erb: bin/pre-start
+  bin/post-start.sh.erb: bin/post-start
   bin/swift_ctl: bin/swift_ctl
   bin/keystone_ctl: bin/keystone_ctl
   helper/install_deb.sh.erb: helper/install_deb.sh

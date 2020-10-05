@@ -1,29 +1,21 @@
 ## PAAS-TA-PORTAL-API-RELEASE     
 
 ### Notices     
-  - Use PAAS-TA-PORTAL-API-RELEASE >= v.2.0.1    
-    - PaaS-TA >= v.5.0.2    
-    - portal-deployment >= v5.0.2    
-  - Use PAAS-TA-PORTAL-API-RELEASE =< v.2.0.0    
-    - PaaS-TA =< v.5.0.1   
-    - portal-deployment =< v5.0.1    
+  - Use PAAS-TA-PORTAL-API-RELEASE >= v.2.0.1-min
+    - PaaS-TA >= v.5.0.2-min    
+    - portal-deployment >= v5.0.2-min    
+  - Use PAAS-TA-PORTAL-API-RELEASE =< v.2.0.0-min    
+    - PaaS-TA =< v.5.0.1-min   
+    - portal-deployment =< v5.0.1-min    
 
 ### PaaS-TA Portal API Release Configuration   
 
-  - binary_storage : 1 machine   
-  - haproxy : 1 machine   
-  - mariadb : 1 machine   
-  - paas-ta-portal-registration : 1 machine   
-  - paas-ta-portal-gateway : 1 machine   
-  - paas-ta-portal-api : 1 machine   
-  - paas-ta-portal-common-api : 1 machine   
-  - paas-ta-portal-log-api : 1 machine   
-  - paas-ta-portal-storage-api : 1 machine   
+  - portal-infra : 1 machine
 
 ### Create PaaS-TA Portal API Release   
   - Download the latest PaaS-TA Portal API Release   
     ```   
-    $ git clone https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE.git   
+    $ git clone -b paas-ta-portal-api-release-min --single-branch https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE.git   
     $ cd PAAS-TA-PORTAL-API-RELEASE   
     ```
   - Download & Copy "source files" into the src directory   
@@ -67,7 +59,7 @@
     ```   
   - Create PaaS-TA Portal API Release   
     ```   
-    ## <VERSION> :: release version (e.g. 2.0.1)   
+    ## <VERSION> :: release version (e.g. 2.0.1-min)   
     ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-portal-api-release-<VERSION>.tgz)   
     $ bosh -e <bosh_name> create-release --name=paasta-portal-api-release --sha2 --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force   
     ```   
