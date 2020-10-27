@@ -1,4 +1,7 @@
+/*
 UPDATE mysql.user SET password=PASSWORD('<%= p("mariadb.admin_user.password") %>') WHERE user='root';
+*/
+ALTER USER 'root'@'localhost' IDENTIFIED BY '<%= p("mariadb.admin_user.password") %>';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '<%= p("mariadb.admin_user.password") %>' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 

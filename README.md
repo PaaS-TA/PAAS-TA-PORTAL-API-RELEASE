@@ -29,7 +29,7 @@
   - Download & Copy "source files" into the src directory   
     ```   
     ## download source files      
-    $ wget -O src.zip http://45.248.73.44/index.php/s/GkTHaTFz6a8KFaX/download   
+    $ wget -O src.zip http://45.248.73.44/index.php/s/yRMt6LBTL5rZSMr/download   
          
     ## unzip download source files   
     $ unzip src.zip   
@@ -41,7 +41,7 @@
       ├── java   
       │   └── server-jre-8u121-linux-x64.tar.gz   
       ├── mariadb   
-      │   └── mariadb-10.1.22-linux-x86_64.tar.gz   
+      │   └── mariadb-10.5.5-linux-x86_64.tar.gz   
       ├── paas-ta-portal-api   
       │   └── paas-ta-portal-api.jar   
       ├── paas-ta-portal-common-api   
@@ -63,11 +63,11 @@
       ├── python   
       │   └── Python-2.7.8.tgz   
       └── swift-all-in-one   
-          └── swift-all-in-one.tar.gz   
+          └── swift-all-in-one-2.23.2.tar.gz   
     ```   
   - Create PaaS-TA Portal API Release   
     ```   
-    ## <VERSION> :: release version (e.g. 2.0.1)   
+    ## <VERSION> :: release version (e.g. 2.1.0)   
     ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-portal-api-release-<VERSION>.tgz)   
     $ bosh -e <bosh_name> create-release --name=paasta-portal-api-release --sha2 --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force   
     ```   

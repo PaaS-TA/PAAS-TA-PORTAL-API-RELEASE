@@ -3,6 +3,7 @@
 set -e
 
 
+
 echo "---------------------------------------------Swift Install Start"
 mkdir /var/vcap/store/srv
 mkdir -p /var/vcap/store/srv/1/node/sdb1
@@ -20,12 +21,29 @@ chown -R vcap:vcap /var/run/swift
 mkdir -p /var/log/swift
 chown -R vcap:vcap /var/log/swift
 
-cp /var/vcap/packages/swift-all-in-one/swift/doc/saio/rsyncd.conf /etc/
+#cp /var/vcap/packages/swift-all-in-one/swift/doc/saio/rsyncd.conf /etc/
+## paasta-swift setting start
+cp /var/vcap/jobs/binary_storage/config/swift/rsyncd.conf /etc/
+## paasta-swift setting end
+
+
 sed -i "s/<your-user-name>/vcap/" /etc/rsyncd.conf
 for x in {1..1}; do find /etc/rsyncd.conf | xargs sudo sed -i "s/\/srv\/$x\/node/\/var\/vcap\/store\/srv\/$x\/node/"; done
 sed -i "s/RSYNC_ENABLE=false/RSYNC_ENABLE=true/" /etc/default/rsync
 
 cp -r /var/vcap/packages/swift-all-in-one/swift/doc/saio/swift/* /etc/swift/.
+## paasta-swift setting start
+rm /etc/swift/account-server/*
+cp /var/vcap/jobs/binary_storage/config/swift/account-server-1.conf /etc/swift/account-server/1.conf
+rm /etc/swift/container-server/*
+cp /var/vcap/jobs/binary_storage/config/swift/container-server-1.conf /etc/swift/container-server/1.conf
+rm /etc/swift/object-server/*
+cp /var/vcap/jobs/binary_storage/config/swift/object-server-1.conf /etc/swift/object-server/1.conf
+rm /etc/swift/proxy-server.conf
+cp /var/vcap/jobs/binary_storage/config/swift/proxy-server.conf /etc/swift/proxy-server.conf
+rm /etc/swift/swift.conf
+cp /var/vcap/jobs/binary_storage/config/swift/swift.conf /etc/swift/swift.conf
+## paasta-swift setting end
 
 sed -e 's/bind_port = 8080/bind_port = <%=p('binary_storage.proxy_port')%>/' -i /etc/swift/proxy-server.conf
 
@@ -37,9 +55,14 @@ find /etc/swift/ -name \*.conf | xargs sudo sed -i "s/bind_ip = 127.0.0.1/bind_i
 
 chown -R vcap:vcap /etc/swift/*
 
-
 mkdir -p /home/vcap/bin
+
 cp /var/vcap/packages/swift-all-in-one/swift/doc/saio/bin/* /home/vcap/bin
+## paasta-swift setting start
+rm /home/vcap/bin/remakerings
+cp /var/vcap/jobs/binary_storage/config/swift/remakerings /home/vcap/bin/remakerings
+## paasta-swift setting end
+
 chmod +x /home/vcap/bin/*
 
 export PATH=$PATH:/usr/local/bin

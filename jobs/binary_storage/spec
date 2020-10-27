@@ -3,6 +3,7 @@ name: binary_storage
 
 templates:
   bin/install.sh.erb: bin/pre-start
+  bin/post-start.sh.erb: bin/post-start
   bin/swift_ctl: bin/swift_ctl
   bin/keystone_ctl: bin/keystone_ctl
   helper/install_deb.sh.erb: helper/install_deb.sh
@@ -27,6 +28,14 @@ templates:
   config/keystone/etc/policy.json: config/keystone/etc/policy.json
   config/keystone/etc/policy.v3cloudsample.json: config/keystone/etc/policy.v3cloudsample.json
   config/keystone/etc/sso_callback_template.html: config/keystone/etc/sso_callback_template.html
+
+  config/swift/account-server-1.conf: config/swift/account-server-1.conf
+  config/swift/container-server-1.conf: config/swift/container-server-1.conf
+  config/swift/object-server-1.conf: config/swift/object-server-1.conf
+  config/swift/proxy-server.conf: config/swift/proxy-server.conf
+  config/swift/remakerings: config/swift/remakerings
+  config/swift/rsyncd.conf: config/swift/rsyncd.conf
+  config/swift/swift.conf: config/swift/swift.conf
 
 packages:
   - python
