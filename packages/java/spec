@@ -1,5 +1,0 @@
----
-name: java
-dependencies: [] # no compile dependencies
-files:
-- java/server-jre-8u121-linux-x64.tar.gz

@@ -1,8 +1,0 @@
----
-name: paas-ta-portal-log-api
-
-dependencies: []
-
-files:
-- paas-ta-portal-log-api/paas-ta-portal-log-api.jar
-

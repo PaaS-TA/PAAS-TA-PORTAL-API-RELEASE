@@ -6,22 +6,34 @@ templates:
   bin/post-start: bin/post-start
   conf/init.sql: conf/init.sql
   conf/mariadb.cnf: conf/mariadb.cnf
+
 packages:
   - mariadb
 
 provides:
-  - {name: mariadb-link, type: mariadb, properties: [mariadb.port, mariadb.admin_user.password, inspection.jdbc_username, inspection.jdbc_password]}
+  - name: mariadb-link
+    type: mariadb
+    properties:
+    - mariadb.port
+    - mariadb.admin_user.password
 
 properties:
   mariadb.port:
     description: MariaDB server port
-    default: 3306
+    default: 13306
   mariadb.admin_user.password:
     description: MariaDB admin user password
     default: admin
-  inspection.jdbc_username:
-    description: MariaDB user for Inspection
-    default: sonar
-  inspection.jdbc_password:
-    description: MariaDB user password for Inspection 
-    default: sonar
+  portal_default.name:
+    description: portal api custom name
+  portal_default.url:
+    description: portal api url and port (portal gateway url)
+    example: http://portal-gateway.system-domain
+  portal_default.uaa_url:
+    description: portal uaa url
+    example: https://uaa.system-domain
+  portal_default.header_auth:
+    description: portal header auth
+  portal_default.desc:
+    description: portal api desc
+    example: PaaS-TA Portal Infra

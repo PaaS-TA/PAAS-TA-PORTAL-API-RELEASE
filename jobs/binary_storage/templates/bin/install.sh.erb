@@ -12,13 +12,8 @@ if [ ! -d "$DATA_DIR" ]; then
   WHEEL_DIR=/var/vcap/packages/swift-all-in-one/whl-files
   SWIFT_PKG_DIR=/var/vcap/packages/swift-all-in-one/swift
 
-  sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password <%= p("mariadb.admin_user.password") %>'
-  sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password <%= p("mariadb.admin_user.password") %>'
-
-
-
-
-
+  sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password <%= link('mariadb-link').p("mariadb.admin_user.password") %>'
+  sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password <%= link('mariadb-link').p("mariadb.admin_user.password") %>'
 
   # log dir chmod
   chmod 771 /var/log
