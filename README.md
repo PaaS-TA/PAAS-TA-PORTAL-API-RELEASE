@@ -18,8 +18,8 @@
     - PaaS-TA =< v.5.0.1
     - portal-deployment =< v5.0.1
   - Use PAAS-TA-PORTAL-API-RELEASE >= v.2.2.0-ctn
-    - PaaS-TA =< v.5.0.4
-    - portal-deployment =< v5.0.4
+    - PaaS-TA >= v.5.0.4
+    - portal-deployment >= v5.0.4
   
 ### PaaS-TA Portal API Release Configuration   
   - Bosh를 이용한 VM 배포
