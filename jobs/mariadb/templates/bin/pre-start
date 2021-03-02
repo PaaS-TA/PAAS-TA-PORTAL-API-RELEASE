@@ -11,9 +11,9 @@ if [ ! -d "$DATA_DIR" ]; then
   PKG_NAME=mariadb
   CONF_FILE=$BASE_DIR/mariadb.cnf
 
-  tar zxvf /var/vcap/packages/$PKG_NAME/mariadb-10.5.5-linux-x86_64.tar.gz -C /var/vcap/store/
+  tar zxvf /var/vcap/packages/$PKG_NAME/mariadb-10.5.8-linux-x86_64.tar.gz -C /var/vcap/store/
 
-  ln -s /var/vcap/store/mariadb-10.5.5-linux-x86_64 $BASE_DIR
+  ln -s /var/vcap/store/mariadb-10.5.8-linux-x86_64 $BASE_DIR
   sudo chmod 777 /tmp
   sudo chown vcap:vcap /var/vcap/sys/log/mariadb
 
@@ -25,5 +25,9 @@ if [ ! -d "$DATA_DIR" ]; then
   sudo chown -R root .
   sudo ./scripts/mysql_install_db --defaults-file=$CONF_FILE --user=vcap
   echo 'export PATH=$PATH:/'$BASE_DIR'/bin/' >> /home/vcap/.bashrc
+
+  # auth plugin install
+  mkdir -p /usr/local/mysql/lib
+  cp -r /var/vcap/store/mariadb/lib/plugin /usr/local/mysql/lib
 
 fi

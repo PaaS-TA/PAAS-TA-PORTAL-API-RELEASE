@@ -15,11 +15,6 @@ if [ ! -d "$DATA_DIR" ]; then
   sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password <%= p("mariadb.admin_user.password") %>'
   sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password <%= p("mariadb.admin_user.password") %>'
 
-
-
-
-
-
   # log dir chmod
   chmod 771 /var/log
 
@@ -28,6 +23,11 @@ if [ ! -d "$DATA_DIR" ]; then
   # bash $JOB_DIR/helper/install_deb.sh gluster-client
   bash $JOB_DIR/helper/install_deb.sh swift-all-in-one
 
+  echo "------pymysql start----------"
+  dpkg -r --force-all python-pymysql
+  pip install --no-index --find-links=$WHEEL_DIR PyNaCl
+  pip install --no-index --find-links=$WHEEL_DIR PyMySQL[ed25519]
+  echo "------pymysql end----------"
 
   pip install --no-index --find-links=$WHEEL_DIR python-swiftclient
   pip install --no-index --find-links=$WHEEL_DIR pbr
@@ -35,6 +35,9 @@ if [ ! -d "$DATA_DIR" ]; then
 
   # insatll openstack-swift dependencies
   pip install --no-index --find-links=$WHEEL_DIR -r $SWIFT_PKG_DIR/requirements.txt
+
+  
+
 
   echo "---------------------------------------------Install Files End"
 
