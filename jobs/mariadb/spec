@@ -37,3 +37,6 @@ properties:
   portal_default.desc:
     description: portal api desc
     example: PaaS-TA Portal Infra
+  cce_enable:
+    description: cce_portal_patch.
+    default: false

@@ -23,6 +23,11 @@ if [ ! -d "$DATA_DIR" ]; then
   # bash $JOB_DIR/helper/install_deb.sh gluster-client
   bash $JOB_DIR/helper/install_deb.sh swift-all-in-one
 
+  echo "------pymysql start----------"
+  dpkg -r --force-all python-pymysql
+  pip install --no-index --find-links=$WHEEL_DIR PyNaCl
+  pip install --no-index --find-links=$WHEEL_DIR PyMySQL[ed25519]
+  echo "------pymysql end----------"
 
   pip install --no-index --find-links=$WHEEL_DIR python-swiftclient
   pip install --no-index --find-links=$WHEEL_DIR pbr

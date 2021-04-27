@@ -4,6 +4,6 @@ set -e
 PACKAGE_NAME=swift-all-in-one
 
 #deb files
-tar -xvf swift-all-in-one/swift-all-in-one-2.23.2.tar.gz
+tar -xvf swift-all-in-one/swift-all-in-one-2.23.2-PaaS-TA.tar.gz
 cp -r ${BOSH_COMPILE_TARGET}/swift-all-in-one/* ${BOSH_INSTALL_TARGET}/.
 
