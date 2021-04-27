@@ -1,16 +1,8 @@
 /*
 UPDATE mysql.user SET password=PASSWORD('<%= p("mariadb.admin_user.password") %>') WHERE user='root';
 */
-/* auth : mysql_native_password
-ALTER USER 'root'@'localhost' IDENTIFIED BY '<%= p("mariadb.admin_user.password") %>';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '<%= p("mariadb.admin_user.password") %>' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
 
-CREATE USER 'keystone'@'localhost' IDENTIFIED BY 'swiftstack';
-CREATE DATABASE IF NOT EXISTS keystone CHARACTER SET utf8 COLLATE utf8_general_ci;
-use keystone;
-GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY 'swiftstack' WITH GRANT OPTION;
-*/
+<% if p("cce_enable") %>
 
 -- auth : ed25519
 ALTER USER 'vcap'@'localhost' IDENTIFIED VIA ed25519 USING PASSWORD('<%= p("mariadb.admin_user.password") %>');
@@ -23,6 +15,20 @@ CREATE USER 'keystone'@'localhost' IDENTIFIED VIA ed25519 USING PASSWORD('swifts
 CREATE DATABASE IF NOT EXISTS keystone CHARACTER SET utf8 COLLATE utf8_general_ci;
 use keystone;
 GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED VIA ed25519 USING PASSWORD('swiftstack') WITH GRANT OPTION;
+
+<% else %>
+
+-- auth : mysql_native_password
+ALTER USER 'root'@'localhost' IDENTIFIED BY '<%= p("mariadb.admin_user.password") %>';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '<%= p("mariadb.admin_user.password") %>' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+CREATE USER 'keystone'@'localhost' IDENTIFIED BY 'swiftstack';
+CREATE DATABASE IF NOT EXISTS keystone CHARACTER SET utf8 COLLATE utf8_general_ci;
+use keystone;
+GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY 'swiftstack' WITH GRANT OPTION;
+
+<% end %>
 
 /*
 

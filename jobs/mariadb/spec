@@ -25,3 +25,6 @@ properties:
   inspection.jdbc_password:
     description: MariaDB user password for Inspection 
     default: sonar
+  cce_enable:
+    description: cce_portal_patch.
+    default: false
