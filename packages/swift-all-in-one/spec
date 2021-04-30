@@ -4,4 +4,4 @@ name: swift-all-in-one
 dependencies:
 
 files:
-  - swift-all-in-one/swift-all-in-one-2.23.2.tar.gz
+  - swift-all-in-one/swift-all-in-one-2.23.2-PaaS-TA.tar.gz

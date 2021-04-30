@@ -51,7 +51,7 @@
   - Download & Copy "source files" into the src directory  
     ```   
     ## download source files      
-    $ wget -O src.zip http://45.248.73.44/index.php/s/FHDzt9oDiMrMqaJ/download
+    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/8f4sxmbHB6HjxXi/download
          
     ## unzip download source files   
     $ unzip src.zip
@@ -63,7 +63,7 @@
       ├── java
       │   └── server-jre-8u121-linux-x64.tar.gz
       ├── mariadb
-      │   └── mariadb-10.5.5-linux-x86_64.tar.gz
+      │   └── mariadb-10.5.8-linux-x86_64.tar.gz
       ├── paas-ta-portal-api
       │   └── paas-ta-portal-api.jar
       ├── paas-ta-portal-common-api
@@ -81,7 +81,7 @@
       ├── python
       │   └── Python-2.7.8.tgz
       └── swift-all-in-one
-          └── swift-all-in-one-2.23.2.tar.gz     
+          └── swift-all-in-one-2.23.2-PaaS-TA.tar.gz     
           
      ----------------------------------------------------------------------------------------------------
      ### CF CLI를 이용한 cloudfoundry container 배포시, 사용하지 않는 source files을 지우고 release를 생성할 수 있다.(Option)
@@ -90,16 +90,16 @@
      ### final src directory 
      src
        ├── mariadb
-       │   └── mariadb-10.5.5-linux-x86_64.tar.gz
+       │   └── mariadb-10.5.8-linux-x86_64.tar.gz
        ├── python
        │   └── Python-2.7.8.tgz
        └── swift-all-in-one
-           └── swift-all-in-one-2.23.2.tar.gz
+           └── swift-all-in-one-2.23.2-PaaS-TA.tar.gz
      ---------------------------------------------------------------------------------------------------- 
     ```   
   - Create PaaS-TA Portal API Release    
     ```   
-    ## <VERSION> :: release version (e.g. 2.2.0 or 2.2.0-ctn)   
+    ## <VERSION> :: release version (e.g. 2.5.0 or 2.5.0-ctn)   
     ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-portal-api-release-<VERSION>.tgz)   
     $ bosh -e <bosh_name> create-release --name=paasta-portal-api-release --sha2 --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force   
     ```   

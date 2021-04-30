@@ -52,7 +52,7 @@ datasource:
     password: <%= p('datasource.cc.password')%>
   portal:
     driver-class-name: <%= p('datasource.portal.driver-class-name')%>
-    url: jdbc:mysql://<%= link('mariadb-link').instances[0].address %>:<%=link('mariadb-link').p('mariadb.port') %>/portaldb
+    url: jdbc:mariadb://<%= link('mariadb-link').instances[0].address %>:<%=link('mariadb-link').p('mariadb.port') %>/portaldb
     username: <%= p('datasource.portal.username')%>
     password: <%= p('datasource.portal.password')%>
   uaa:
