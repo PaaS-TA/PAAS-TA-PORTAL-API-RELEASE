@@ -1,4 +1,7 @@
 ## PAAS-TA-PORTAL-API-RELEASE
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ### Portal 배포 방식에 따른 branch 분리
   - Bosh를 이용한 VM 배포
@@ -105,3 +108,23 @@
     ```   
 ### Deployment
 - https://github.com/PaaS-TA/portal-deployment   
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/jinhyojin"><img src="https://avatars.githubusercontent.com/u/76993633?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jinhyojin</b></sub></a><br /><a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/issues?q=author%3Ajinhyojin" title="Bug reports">🐛</a> <a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/commits?author=jinhyojin" title="Tests">⚠️</a> <a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/commits?author=jinhyojin" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
