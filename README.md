@@ -1,6 +1,6 @@
 ## PAAS-TA-PORTAL-API-RELEASE
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ### Portal 배포 방식에 따른 branch 분리
@@ -119,6 +119,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/jinhyojin"><img src="https://avatars.githubusercontent.com/u/76993633?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jinhyojin</b></sub></a><br /><a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/issues?q=author%3Ajinhyojin" title="Bug reports">🐛</a> <a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/commits?author=jinhyojin" title="Tests">⚠️</a> <a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/commits?author=jinhyojin" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/okpc579"><img src="https://avatars.githubusercontent.com/u/55691511?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ruby</b></sub></a><br /><a href="#infra-okpc579" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/commits?author=okpc579" title="Tests">⚠️</a> <a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/commits?author=okpc579" title="Code">💻</a></td>
   </tr>
 </table>
 
