@@ -2,8 +2,10 @@
 set -e
 
 PACKAGE_NAME=swift-all-in-one
+SWIFT_VERSION=2.23.2
 
-#deb files
-tar -xvf swift-all-in-one/swift-all-in-one-2.23.2-PaaS-TA.tar.gz
-cp -r ${BOSH_COMPILE_TARGET}/swift-all-in-one/* ${BOSH_INSTALL_TARGET}/.
+tar -zxvf ${PACKAGE_NAME}/swift-${SWIFT_VERSION}.tar.gz
+tar -zxvf ${PACKAGE_NAME}/swift-${SWIFT_VERSION}-bionic-dependencies.tar.gz
+rm -r ${BOSH_COMPILE_TARGET}/${PACKAGE_NAME}
+cp -r ${BOSH_COMPILE_TARGET}/* ${BOSH_INSTALL_TARGET}/.
 
