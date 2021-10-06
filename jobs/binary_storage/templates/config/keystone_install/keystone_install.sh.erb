@@ -27,6 +27,21 @@ chown -R keystone:keystone /var/vcap/store/log/keystone
 # apache2 default port change
 sed -i "s/5000/<%=p('binary_storage.auth_port')%>/" /etc/apache2/sites-available/keystone.conf
 
+<% if p("cce_enable") %>
+# apache2 cce start
+cceCodeCount=`cat /etc/apache2/apache2.conf | grep 'FollowSymLinks' | wc -l`
+
+if [ ${cceCodeCount} -ne "0" ] ; then
+  a2dissite 000-default.conf
+  rm /etc/apache2/sites-available/000-default.conf
+  rm /etc/apache2/sites-available/default-ssl.conf
+  sed -i "s/Listen/#Listen/" /etc/apache2/ports.conf
+  sed -i "s/Options FollowSymLinks/LimitRequestBody 5000000/" /etc/apache2/apache2.conf
+  sed -i "s/Options Indexes FollowSymLinks/LimitRequestBody 5000000/" /etc/apache2/apache2.conf
+fi
+# apache2 cce end
+<% end %>
+
 systemctl restart apache2
 sleep 3
 
