@@ -17,14 +17,36 @@ sleep 5
 
 chown -R keystone:keystone /var/vcap/store/log/keystone
 
-systemctl stop keystone
-sleep 1
+#systemctl stop keystone
+#sleep 1
 
-systemctl start keystone
+#systemctl start keystone
+#sleep 3
+
+# keystone service -> apache2 service 
+# apache2 default port change
+sed -i "s/5000/<%=p('binary_storage.auth_port')%>/" /etc/apache2/sites-available/keystone.conf
+
+<% if p("cce_enable") %>
+# apache2 cce start
+cceCodeCount=`cat /etc/apache2/apache2.conf | grep 'FollowSymLinks' | wc -l`
+
+if [ ${cceCodeCount} -ne "0" ] ; then
+  a2dissite 000-default.conf
+  rm /etc/apache2/sites-available/000-default.conf
+  rm /etc/apache2/sites-available/default-ssl.conf
+  sed -i "s/Listen/#Listen/" /etc/apache2/ports.conf
+  sed -i "s/Options FollowSymLinks/LimitRequestBody 5000000/" /etc/apache2/apache2.conf
+  sed -i "s/Options Indexes FollowSymLinks/LimitRequestBody 5000000/" /etc/apache2/apache2.conf
+fi
+# apache2 cce end
+<% end %>
+
+systemctl restart apache2
 sleep 3
 
-
 keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
+keystone-manage credential_setup --keystone-user keystone --keystone-group keystone
 
 ################################################
 
@@ -43,7 +65,7 @@ echo "---------------------------------------------Endpoint Install Start"
 
 if [[ -z "$DISABLE_ENDPOINTS" ]]; then
     keystone-manage bootstrap --bootstrap-password ADMIN_PASS \
-    --bootstrap-admin-url http://localhost:35357/v3/ \
+    --bootstrap-admin-url http://localhost:<%=p('binary_storage.auth_port')%>/v3/ \
     --bootstrap-internal-url http://localhost:<%=p('binary_storage.auth_port')%>/v3/ \
     --bootstrap-public-url http://<%= link('binary_storage-link').instances[0].address%>:<%=p('binary_storage.auth_port')%>/v3/ \
     --bootstrap-region-id paasta
@@ -56,7 +78,7 @@ export OS_PASSWORD=ADMIN_PASS
 export OS_PROJECT_NAME=admin
 export OS_USER_DOMAIN_NAME=Default
 export OS_PROJECT_DOMAIN_NAME=Default
-export OS_AUTH_URL=http://localhost:35357/v3
+export OS_AUTH_URL=http://localhost:<%=p('binary_storage.auth_port')%>/v3
 export OS_IDENTITY_API_VERSION=3
 
 echo "---------------------------------------------Swift Project & User Install Start"

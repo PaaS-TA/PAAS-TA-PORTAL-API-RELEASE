@@ -42,16 +42,7 @@ packages:
   - swift-all-in-one
 
 provides:
-  - name: binary_storage-link
-    type: binary_storage
-    properties:
-    - binary_storage.proxy_port
-    - binary_storage.username
-    - binary_storage.password
-    - binary_storage.tenantname
-    - binary_storage.email
-    - binary_storage.binary_desc
-    - binary_storage.auth_port
+  - {name: binary_storage-link, type: binary_storage, properties: [binary_storage.proxy_port, binary_storage.username, binary_storage.password, binary_storage.tenantname, binary_storage.email, binary_storage.binary_desc, binary_storage.auth_port, mariadb.admin_user.password, cce_enable]}
 
 consumes:
   - name: mariadb-link
@@ -71,7 +62,13 @@ properties:
   binary_storage.email:
     description: 'keystone default user emaili'
   binary_storage.binary_desc:
-    description: 'keystone default binary_desc'
-    default: 'portal binary_storage'
+    description: 'keystone default user emaili'
   binary_storage.auth_port:
     description: 'keystone auth port'
+  mariadb.admin_user.password:
+    description: MariaDB admin user password
+    default: admin
+  cce_enable:
+    description: cce_portal_patch.
+    default: false
+
