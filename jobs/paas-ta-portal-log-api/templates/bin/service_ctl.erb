@@ -28,7 +28,7 @@ echo "Starting 4 :: DATA_DIR :: $JOB_CONFIG"
 echo "Starting 5 :: PKG_DIR :: $PKG_DIR"
 echo "Starting 6 :: JAVA_DIR :: $JAVA_DIR"
 
-exec $JAVA_DIR/bin/java -cp "${PKG_DIR}/${JOB_NAME}.jar" -Dspring.profiles.active=dev <%= p('java_opts')%> -Dspring.config.location=${JOB_CONFIG} org.springframework.boot.loader.JarLauncher \
+exec $JAVA_DIR/bin/java -cp "${PKG_DIR}/${JOB_NAME}.jar" -Dspring.profiles.active=<%= p('spring.profiles.active')%> <%= p('java_opts')%> -Dspring.config.location=${JOB_CONFIG} org.springframework.boot.loader.JarLauncher \
 >>$LOG_DIR/$JOB_NAME.stdout.log \
 2>>$LOG_DIR/$JOB_NAME.stderr.log &
 
