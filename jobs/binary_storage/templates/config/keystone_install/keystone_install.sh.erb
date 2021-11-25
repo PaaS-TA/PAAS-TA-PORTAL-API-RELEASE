@@ -81,6 +81,42 @@ export OS_PROJECT_DOMAIN_NAME=Default
 export OS_AUTH_URL=http://localhost:<%=p('binary_storage.auth_port')%>/v3
 export OS_IDENTITY_API_VERSION=3
 
+echo "---------------------------------------------apache_wsgi_check Start"
+FN_CNT=0
+function apache_wsgi_check () {
+
+  LOOP_CNT=0
+  STATUS="true"
+
+  if [ $FN_CNT -lt 4 ]; then
+
+    while [ $LOOP_CNT -lt 10 ]
+    do
+      sleep 1
+      LOOP_CNT=$(($LOOP_CNT+1))
+      RES_CODE=$(curl -sS -o /dev/null -w "%{http_code}" "http://localhost:<%=p('binary_storage.auth_port')%>/v3")
+      echo "($LOOP_CNT)RES_CODE=$RES_CODE"
+
+      if [ $RES_CODE -eq 500 ]; then
+        echo "systemctl reload apache2 ...."
+        systemctl reload apache2
+        sleep 5
+        STATUS="false"
+        break
+      fi
+    done
+
+    if [ $STATUS == "false" ]; then
+      FN_CNT=$(($FN_CNT+1))
+      echo "apache_wsgi_check retry ($FN_CNT)"
+      apache_wsgi_check
+    fi
+  fi
+}
+
+apache_wsgi_check
+echo "---------------------------------------------apache_wsgi_check End"
+
 echo "---------------------------------------------Swift Project & User Install Start"
 DEMO_TENANT=$(get_id openstack project create --description "Default project" demo)
 
