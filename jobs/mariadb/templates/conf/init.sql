@@ -217,7 +217,7 @@ INSERT INTO `code_detail` VALUES (15, '3', '삭제', '삭제회원', 'USER_STATU
 INSERT INTO `code_detail` VALUES (16, 'minCpu', '20', 'cpu 최소', 'USER_AUTOSCAILE', 'Y', 4, 'admin', '2016-07-26 01:53:42', '2016-07-26 08:02:02');
 INSERT INTO `code_detail` VALUES (17, 'maxCpu', '80', 'cpu 최대', 'USER_AUTOSCAILE', 'Y', 3, 'admin', '2016-07-26 01:53:42', '2016-07-26 08:02:02');
 INSERT INTO `code_detail` VALUES (18, '1', '승인', '이메일승인완료', 'USER_STATUS', 'Y', 2, 'admin', '2016-08-02 04:56:27', '2016-08-02 04:56:27');
-INSERT INTO `code_detail` VALUES (19, 'ORG MANAGER', '조직 관리자', 'Can invite users and manage user roles in the org ', 'ORG_ROLES', 'Y', 1, 'admin', '2016-09-02 01:17:19', '2016-09-02 01:22:38');
+-- INSERT INTO `code_detail` VALUES (19, 'ORG MANAGER', '조직 관리자', 'Can invite users and manage user roles in the org ', 'ORG_ROLES', 'Y', 1, 'admin', '2016-09-02 01:17:19', '2016-09-02 01:22:38');
 INSERT INTO `code_detail` VALUES (20, '0', '생성', '이메일승인대기', 'USER_STATUS', 'Y', 1, 'admin', '2016-08-02 04:56:27', '2016-08-02 04:57:19');
 INSERT INTO `code_detail` VALUES (21, 'minInstance', '2', '인스턴스 최소', 'USER_AUTOSCAILE', 'Y', 1, 'admin', '2016-07-26 01:44:17', '2016-07-26 08:33:01');
 INSERT INTO `code_detail` VALUES (22, 'maxInstance', '20', '인스턴스 최대', 'USER_AUTOSCAILE', 'Y', 2, 'admin', '2016-07-26 01:44:44', '2016-07-26 08:33:29');
