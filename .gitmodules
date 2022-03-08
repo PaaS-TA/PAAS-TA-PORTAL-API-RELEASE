@@ -1,0 +1,21 @@
+[submodule "src/paas-ta-portal-api"]
+	path = src/paas-ta-portal-api
+	url = https://github.com/PaaS-TA/PAAS-TA-PORTAL-API
+[submodule "src/paas-ta-portal-common-api"]
+	path = src/paas-ta-portal-common-api
+	url = https://github.com/PaaS-TA/PAAS-TA-PORTAL-COMMON-API
+[submodule "src/paas-ta-portal-log-api"]
+	path = src/paas-ta-portal-log-api
+	url = https://github.com/PaaS-TA/PAAS-TA-PORTAL-log-API
+[submodule "src/paas-ta-portal-storage-api"]
+	path = src/paas-ta-portal-storage-api
+	url = https://github.com/PaaS-TA/PAAS-TA-PORTAL-storage-API
+[submodule "src/paas-ta-portal-gateway"]
+	path = src/paas-ta-portal-gateway
+	url = https://github.com/PaaS-TA/PAAS-TA-PORTAL-gateway
+[submodule "src/paas-ta-portal-registration"]
+	path = src/paas-ta-portal-registration
+	url = https://github.com/PaaS-TA/PAAS-TA-PORTAL-registration
+[submodule "src/paas-ta-portal-infra-admin"]
+	path = src/paas-ta-portal-infra-admin
+	url = https://github.com/PaaS-TA/PAAS-TA-PORTAL-infra-admin
