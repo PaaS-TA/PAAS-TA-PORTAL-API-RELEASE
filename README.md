@@ -84,6 +84,7 @@
       ├── python
       │   └── Python-3.6.9.tgz
       └── swift-all-in-one
+          └── README.txt ( dependencies : apache2 2.4.49 >  2.4.53 )
           └── swift-2.23.2.tar.gz
           └── swift-2.23.2-bionic-dependencies.tar.gz
           
