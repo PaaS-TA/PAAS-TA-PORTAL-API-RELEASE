@@ -18,7 +18,8 @@ done
 
 
 NEW_LANG=$(grep "languageList" ${APP_CONFIG} | tr -d '\[' | tr -d '\]' | tr -d '"' | tr -d ' ' | tr -d '\r\n' | cut -d ":" -f2)
-IFS=',' read -r -a NEW_LANG_LIST <<< "$NEW_LANG"
+IFS=',' read -r -a DUP_LANG_CHECK <<< "$NEW_LANG"
+NEW_LANG_LIST=($(printf "%s\n" "${DUP_LANG_CHECK[@]}" | sort -u))
 
 if (( ${#NEW_LANG_LIST[@]} == 0 )); then
         echo "Error: Language list does not exist" >> $LOG_PATH
@@ -35,7 +36,7 @@ fi
 
 
 ORIGIN_INPUT=$(grep "languageList" ${APP_CONFIG} | sed -e 's/: /:/g' | cut -d ":" -f2 | sed -e 's/\[/\\[/g' | sed -e 's/\]/\\]/g')
-CHANGE_INPUT=$(grep "languageList" ${APP_CONFIG} | tr -d '\[' | tr -d '\]' | tr -d '"' | tr -d ' ' | tr -d '\r' | cut -d ":" -f2)
+CHANGE_INPUT=$(echo "${NEW_LANG_LIST[*]}" | sed 's/ /,/g')
 
 CONFIG_CHANGE="'s/${ORIGIN_INPUT}/${CHANGE_INPUT}/g' ${APP_CONFIG}"
 
