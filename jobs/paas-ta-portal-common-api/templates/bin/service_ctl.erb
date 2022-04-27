@@ -28,6 +28,8 @@ case $1 in
     echo "Starting 5 :: PKG_DIR :: $PKG_DIR"
     echo "Starting 6 :: JAVA_DIR :: $JAVA_DIR"
 
+    source /var/vcap/jobs/${JOB_NAME}/bin/pre_start ${JOB_NAME}
+
     exec $JAVA_DIR/bin/java -cp "${PKG_DIR}/${JOB_NAME}.jar" <%= p('java_opts')%> -Dspring.config.location=${JOB_CONFIG} org.springframework.boot.loader.JarLauncher \
                   >>$LOG_DIR/$JOB_NAME.stdout.log \
                   2>>$LOG_DIR/$JOB_NAME.stderr.log &
