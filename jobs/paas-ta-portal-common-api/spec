@@ -85,3 +85,6 @@ properties:
     description: 'Please enter a title to use.'
   languageList:
     description: 'language list used in portal'
+    default:
+    - ko
+    - en
