@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+
+APP_CONFIG="${JOB_DIR}/data/application.yml"
+SEARCH_FILTER=$(unzip -q -l ${PKG_DIR}/${JOB_NAME}.jar | grep "template/" | cut -d "/" -f4 | uniq)
+LOG_PATH="/var/vcap/sys/log/monit/$JOB_NAME.err.log"
+
+
+ORIGIN_LANG=()
+for lang in ${SEARCH_FILTER}
+do
+        if [[ -n "${lang}" ]]; then
+                ORIGIN_LANG+=(${lang})
+        fi
+done
+
+
+NEW_LANG=$(grep "languageList" ${APP_CONFIG} | tr -d '\[' | tr -d '\]' | tr -d '"' | tr -d ' ' | tr -d '\r\n' | cut -d ":" -f2)
+IFS=',' read -r -a DUP_LANG_CHECK <<< "$NEW_LANG"
+NEW_LANG_LIST=($(printf "%s\n" "${DUP_LANG_CHECK[@]}" | sort -u))
+
+if (( ${#NEW_LANG_LIST[@]} == 0 )); then
+        echo "Error: Language list does not exist" >> $LOG_PATH
+        exit 1
+else
+        for element in ${NEW_LANG_LIST[@]}
+        do
+                if [[ ! ${ORIGIN_LANG[@]} =~ ${element} ]]; then
+                        echo "Error: \"${element}\" is unsupported language" >> $LOG_PATH
+                        exit 1
+                fi
+        done
+fi
+
+
+ORIGIN_INPUT=$(grep "languageList" ${APP_CONFIG} | sed -e 's/: /:/g' | cut -d ":" -f2 | sed -e 's/\[/\\[/g' | sed -e 's/\]/\\]/g')
+CHANGE_INPUT=$(echo "${NEW_LANG_LIST[*]}" | sed 's/ /,/g')
+
+CONFIG_CHANGE="'s/${ORIGIN_INPUT}/${CHANGE_INPUT}/g' ${APP_CONFIG}"
+
+echo "sed -i ${CONFIG_CHANGE}"
+echo $CONFIG_CHANGE | xargs sed -i
