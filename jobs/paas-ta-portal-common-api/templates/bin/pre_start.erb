@@ -19,7 +19,14 @@ done
 
 NEW_LANG=$(grep "languageList" ${APP_CONFIG} | tr -d '\[' | tr -d '\]' | tr -d '"' | tr -d ' ' | tr -d '\r\n' | cut -d ":" -f2)
 IFS=',' read -r -a DUP_LANG_CHECK <<< "$NEW_LANG"
-NEW_LANG_LIST=($(printf "%s\n" "${DUP_LANG_CHECK[@]}" | sort -u))
+
+NEW_LANG_LIST=()
+for lang in ${DUP_LANG_CHECK[@]}
+do
+        if [[ ! ${NEW_LANG_LIST[@]} =~ ${lang} ]]; then
+                NEW_LANG_LIST+=($lang)
+        fi
+done
 
 if (( ${#NEW_LANG_LIST[@]} == 0 )); then
         echo "Error: Language list does not exist" >> $LOG_PATH
