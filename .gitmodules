@@ -4,6 +4,7 @@
 [submodule "src/paas-ta-portal-common-api"]
 	path = src/paas-ta-portal-common-api
 	url = https://github.com/PaaS-TA/PAAS-TA-PORTAL-COMMON-API
+	branch = EMAIL-en
 [submodule "src/paas-ta-portal-log-api"]
 	path = src/paas-ta-portal-log-api
 	url = https://github.com/PaaS-TA/PAAS-TA-PORTAL-log-API
