@@ -28,6 +28,8 @@ echo "Starting 4 :: DATA_DIR :: $JOB_CONFIG"
 echo "Starting 5 :: PKG_DIR :: $PKG_DIR"
 echo "Starting 6 :: JAVA_DIR :: $JAVA_DIR"
 
+ulimit -n 1048576
+
 exec $JAVA_DIR/bin/java -cp "${PKG_DIR}/${JOB_NAME}.jar" <%= p('java_opts')%> -Dspring.config.location=${JOB_CONFIG} org.springframework.boot.loader.JarLauncher \
 >>$LOG_DIR/$JOB_NAME.stdout.log \
 2>>$LOG_DIR/$JOB_NAME.stderr.log &
