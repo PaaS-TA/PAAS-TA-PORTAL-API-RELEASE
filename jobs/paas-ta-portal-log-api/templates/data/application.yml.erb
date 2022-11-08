@@ -1,7 +1,7 @@
 # Spring properties
 spring:
   application:
-    name: PortalLogApi  # Service registers under this name
+    name: <%= p('spring.application.name')%>  # Service registers under this name
   security:
     username: admin
     password: openpaasta
@@ -72,17 +72,18 @@ cloudfoundry:
       clientSecret: <%= p('cloudfoundry.user.uaaClient.clientSecret')%>
       adminClientId: <%= p('cloudfoundry.user.uaaClient.adminClientId')%>
       adminClientSecret: <%= p('cloudfoundry.user.uaaClient.adminClientSecret')%>
-      loginClientId: <%= p('cloudfoundry.user.uaaClient.loginClientId')%>
-      loginClientSecret: <%= p('cloudfoundry.user.uaaClient.loginClientSecret')%>
       skipSSLValidation: <%= p('cloudfoundry.user.uaaClient.skipSSLValidation')%>
-  authorization: <%= p('cloudfoundry.authorization')%>
 
 
 # Discovery Server Access
 eureka:
   client:
     serviceUrl:
+    <% if p('portalType') == 'app' %>
+      defaultZone: http://portal-registration.<%= p('paasta.domain') %>/eureka/
+    <% else %>
       defaultZone: http://<%= link('paas-ta-portal-registration-link').instances[0].address %>:<%= link('paas-ta-portal-registration-link').p('server.port') %>/eureka/
+    <% end %>
       registry-fetch-interval-seconds: 5
   instance:
     hostname: ${spring.cloud.client.hostname}
@@ -90,15 +91,12 @@ eureka:
     lease-renewal-interval-in-seconds: 10
 
 
-paasta:
-  portal:
-    api:
-      authorization:
-        base64: Basic YWRtaW46b3BlbnBhYXN0YQ==
-      zuulUrl:
-        cfapi: http://<%= link('paas-ta-portal-gateway-link').instances[0].address %>:<%= link('paas-ta-portal-gateway-link').p('server.port') %>/portalapi
-        commonapi: http://<%= link('paas-ta-portal-gateway-link').instances[0].address %>:<%= link('paas-ta-portal-gateway-link').p('server.port') %>/commonapi
-        storageapi: http://<%= link('paas-ta-portal-gateway-link').instances[0].address %>:<%= link('paas-ta-portal-gateway-link').p('server.port') %>/storageapi
-    storageapi:
-      type: swift
-
+# InfluxDB Access Info
+influxdb:
+  url: http://<%= p('influxdb.ip')%>:<%= p('influxdb.port')%>
+  username: <%= p('influxdb.username')%>
+  password: <%= p('influxdb.password')%>
+  database: <%= p('influxdb.database')%>
+  measurement: <%= p('influxdb.measurement')%>
+  retention-policy: autogen
+  limit: <%= p('influxdb.limit')%>

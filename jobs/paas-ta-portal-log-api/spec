@@ -13,13 +13,12 @@ packages:
   - paas-ta-portal-log-api
 
 provides:
-  - {name : paas-ta-portal-log-api-link, type: paas-ta-portal-log-api, properties: [infra.admin.enable, java_opts, server.port, cloudfoundry.cc.api.url, cloudfoundry.cc.api.uaaUrl, cloudfoundry.cc.api.sslSkipValidation, cloudfoundry.user.admin.username, cloudfoundry.user.admin.password, cloudfoundry.user.uaaClient.clientId, cloudfoundry.user.uaaClient.clientSecret, cloudfoundry.user.uaaClient.adminClientId, cloudfoundry.user.uaaClient.adminClientSecret, cloudfoundry.user.uaaClient.loginClientId, cloudfoundry.user.uaaClient.loginClientSecret, cloudfoundry.user.uaaClient.skipSSLValidation, cloudfoundry.authorization, spring.profiles.active]}
+  - {name : paas-ta-portal-log-api-link, type: paas-ta-portal-log-api, properties: [infra.admin.enable, java_opts, server.port, cloudfoundry.cc.api.url, cloudfoundry.cc.api.uaaUrl, cloudfoundry.cc.api.sslSkipValidation, cloudfoundry.user.admin.username, cloudfoundry.user.admin.password, cloudfoundry.user.uaaClient.clientId, cloudfoundry.user.uaaClient.clientSecret, cloudfoundry.user.uaaClient.adminClientId, cloudfoundry.user.uaaClient.adminClientSecret, cloudfoundry.user.uaaClient.skipSSLValidation, spring.profiles.active, influxdb.ip, influxdb.port, influxdb.username, influxdb.password, influxdb.database, influxdb.measurement, influxdb.limit]}
 
 consumes:
   - name: paas-ta-portal-registration-link
     type: paas-ta-portal-registration
-  - name: paas-ta-portal-gateway-link
-    type: paas-ta-portal-gateway
+    optional: true
 
 properties:
   java_opts:
@@ -31,39 +30,69 @@ properties:
   server.port:
     description: 'Enter the Service Port'
     default: '2230'
+
+  paasta.domain:
+    description: 'Please enter PaaS-TA domain.'
+    default: '52.78.32.153.xip.io'
+  portalType:
+    description: 'Please enter PaaS-TA Portal deploy type.'
+    default: 'vm'
+
   cloudfoundry.cc.api.url:
     description: 'Please enter the cloud foundry api url.'
+    default: 'https://api.52.78.32.153.xip.io'
   cloudfoundry.cc.api.uaaUrl:
     description: 'Please enter the cloud foundry uaa url.'
+    default: 'https://uaa.52.78.32.153.xip.io'
   cloudfoundry.cc.api.sslSkipValidation:
     description: 'Change to true if cloud foundry api uses ssl.'
     default: true
   cloudfoundry.user.admin.username:
     description: 'Please enter the cloud foundry administrator account.'
+    default: 'admin'
   cloudfoundry.user.admin.password:
     description: 'Please enter the cloud foundry administrator account password'
+    default: 'admin'
   cloudfoundry.user.uaaClient.clientId:
     description: 'uaa Enter the client with login authority.'
-    default: true
+    default: 'login'
   cloudfoundry.user.uaaClient.clientSecret:
-    description: 'uaa Enter the client secret with login privileges.'
-    default: true
+     description: 'uaa Enter the client secret with login privileges.'
+     default: 'login-secret'
   cloudfoundry.user.uaaClient.adminClientId:
     description: 'Enter the uaa admin client.'
-    default: true
+    default: 'admin'
   cloudfoundry.user.uaaClient.adminClientSecret:
     description: 'Enter the uaa admin client secret.'
-    default: true
-  cloudfoundry.user.uaaClient.loginClientId:
-    description: 'Enter the uaa login client secret.'
-    default: true
-  cloudfoundry.user.uaaClient.loginClientSecret:
-    description: 'Enter the uaa login client secret.'
-    default: true
+    default: 'admin-secret'
   cloudfoundry.user.uaaClient.skipSSLValidation:
     description: 'Change to true if uaa api uses ssl.'
     default: true
-  cloudfoundry.authorization:
-    default: 'cf-Authorization'
+
+  spring.application.name:
+    description: 'Spring application name'
+    default: 'PortalLogApi'
   spring.profiles.active:
     default: 'real'
+
+  influxdb.ip:
+    description: 'InfluxDB http ip'
+    default: '10.0.1.115'
+  influxdb.port:
+    description: 'InfluxDB http port'
+    default: 8086
+  influxdb.username:
+    description: 'InfluxDB user name'
+    default: 'admin'
+  influxdb.password:
+    description: 'InfluxDB user password'
+    default: 'PaaS-TA2020'
+  influxdb.database:
+    description: 'InfluxDB database name'
+    default: 'logging_db'
+  influxdb.measurement:
+    description: 'InfluxDB measurement name'
+    default: 'logging_measurement'
+  influxdb.limit:
+    description: 'InfluxDB query limit'
+    default: 50
