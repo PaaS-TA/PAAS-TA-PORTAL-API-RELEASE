@@ -80,7 +80,7 @@ eureka:
   client:
     serviceUrl:
     <% if p('portalType') == 'app' %>
-      defaultZone: http://portal-registration.<%= p('paasta.domain') %>/eureka/
+      defaultZone: <%= p('eureka.client.serviceUrl.defaultZone') %>
     <% else %>
       defaultZone: http://<%= link('paas-ta-portal-registration-link').instances[0].address %>:<%= link('paas-ta-portal-registration-link').p('server.port') %>/eureka/
     <% end %>

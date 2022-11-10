@@ -30,10 +30,6 @@ properties:
   server.port:
     description: 'Enter the Service Port'
     default: '2230'
-
-  paasta.domain:
-    description: 'Please enter PaaS-TA domain.'
-    default: '52.78.32.153.xip.io'
   portalType:
     description: 'Please enter PaaS-TA Portal deploy type.'
     default: 'vm'
@@ -68,6 +64,10 @@ properties:
   cloudfoundry.user.uaaClient.skipSSLValidation:
     description: 'Change to true if uaa api uses ssl.'
     default: true
+
+  eureka.client.serviceUrl.defaultZone:
+    description: 'Enter eureka default service url.'
+    default: 'http://portal-registration.52.78.32.153.xip.io/eureka/'
 
   spring.application.name:
     description: 'Spring application name'
