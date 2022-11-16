@@ -35,9 +35,14 @@ properties:
     description: 'Please enter the cloud foundry api url.'
   cloudfoundry.cc.api.uaaUrl:
     description: 'Please enter the cloud foundry uaa url.'
+  cloudfoundry.cc.api.logCacheUrl:
+    description: 'Please enter the cloud foundry log-Cache url.'
   cloudfoundry.cc.api.sslSkipValidation:
     description: 'Change to true if cloud foundry api uses ssl.'
     default: true
+  cloudfoundry.cc.api.type:
+    description: 'cc api type(ap or sidecar)'
+    default: ap
   cloudfoundry.user.admin.username:
     description: 'Please enter the cloud foundry administrator account.'
   cloudfoundry.user.admin.password:
