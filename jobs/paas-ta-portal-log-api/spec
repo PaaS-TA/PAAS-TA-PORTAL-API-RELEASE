@@ -101,3 +101,6 @@ properties:
   influxdb.limit:
     description: 'InfluxDB query limit'
     default: 50
+  influxdb.https.enabled:
+    description: 'InfluxDB enabled HTTPS'
+    default: false
