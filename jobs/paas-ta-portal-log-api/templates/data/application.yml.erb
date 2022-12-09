@@ -93,7 +93,12 @@ eureka:
 
 # InfluxDB Access Info
 influxdb:
+  ip: <%= p('influxdb.ip')%>
+<% if link('influxdb').p('influxdb.https_enabled') == 'true' %>  
+  url: https://<%= p('influxdb.ip')%>:<%= p('influxdb.port')%>
+<% else %>
   url: http://<%= p('influxdb.ip')%>:<%= p('influxdb.port')%>
+<% end %>
   username: <%= p('influxdb.username')%>
   password: <%= p('influxdb.password')%>
   database: <%= p('influxdb.database')%>

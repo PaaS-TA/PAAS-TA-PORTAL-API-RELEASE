@@ -3,7 +3,9 @@ name: paas-ta-portal-log-api
 
 templates:
   bin/service_ctl.erb: bin/service_ctl
+  bin/pre_start.erb: bin/pre_start
   bin/monit_debugger: bin/monit_debugger
+  data/private_key.pem.erb: data/private_key.pem
   data/properties.sh: data/properties.sh
   data/application.yml.erb: data/application.yml
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
@@ -13,11 +15,14 @@ packages:
   - paas-ta-portal-log-api
 
 provides:
-  - {name : paas-ta-portal-log-api-link, type: paas-ta-portal-log-api, properties: [infra.admin.enable, java_opts, server.port, cloudfoundry.cc.api.url, cloudfoundry.cc.api.uaaUrl, cloudfoundry.cc.api.sslSkipValidation, cloudfoundry.user.admin.username, cloudfoundry.user.admin.password, cloudfoundry.user.uaaClient.clientId, cloudfoundry.user.uaaClient.clientSecret, cloudfoundry.user.uaaClient.adminClientId, cloudfoundry.user.uaaClient.adminClientSecret, cloudfoundry.user.uaaClient.skipSSLValidation, spring.profiles.active, influxdb.ip, influxdb.port, influxdb.username, influxdb.password, influxdb.database, influxdb.measurement, influxdb.limit]}
+  - {name : paas-ta-portal-log-api-link, type: paas-ta-portal-log-api, properties: [infra.admin.enable, java_opts, server.port, cloudfoundry.cc.api.url, cloudfoundry.cc.api.uaaUrl, cloudfoundry.cc.api.sslSkipValidation, cloudfoundry.user.admin.username, cloudfoundry.user.admin.password, cloudfoundry.user.uaaClient.clientId, cloudfoundry.user.uaaClient.clientSecret, cloudfoundry.user.uaaClient.adminClientId, cloudfoundry.user.uaaClient.adminClientSecret, cloudfoundry.user.uaaClient.skipSSLValidation, spring.profiles.active]}
 
 consumes:
   - name: paas-ta-portal-registration-link
     type: paas-ta-portal-registration
+    optional: true
+  - name: influxdb
+    type: influxdb
     optional: true
 
 properties:
