@@ -39,7 +39,7 @@ openssl pkcs12 -export -in influx_cert.crt -inkey influx_private.key -passin pas
 
 mv keystore.p12 truststore.jks ${JOB_DIR}/data
 
-cd ${JOB_DIR}/bin
+cd ${JOB_DIR}/data
 sudo chown -R vcap:vcap keystore.p12
 sudo chown -R vcap:vcap truststore.jks
 
