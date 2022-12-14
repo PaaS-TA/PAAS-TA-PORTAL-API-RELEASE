@@ -84,6 +84,10 @@ zuul:
       path: /storageapi/**
       url: PORTALSTORAGEAPI
       sensitiveHeaders:
+    LoggingApi:
+      path: /logapi/**
+      url: PORTALLOGGINGAPI
+      sensitiveHeaders:
 
 ribbon:     # Do load balancing without discovery service
   eureka:
