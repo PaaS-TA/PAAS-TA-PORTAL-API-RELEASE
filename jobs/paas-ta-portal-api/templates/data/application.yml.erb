@@ -61,7 +61,9 @@ cloudfoundry:
     api:
       url: <%= p('cloudfoundry.cc.api.url')%>
       uaaUrl: <%= p('cloudfoundry.cc.api.uaaUrl')%>
+      logCacheUrl: <%= p('cloudfoundry.cc.api.logCacheUrl')%>
       sslSkipValidation: <%= p('cloudfoundry.cc.api.sslSkipValidation')%>
+      type: <%= p('cloudfoundry.cc.api.type')%>
   # CloudFoundry Login information
   user:
     admin:
