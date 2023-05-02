@@ -45,6 +45,9 @@ info:
 
 
 server:
+<% if p('paastaType') == 'sidecar' && p('portalType') == 'app' %>
+  ip: <SERVER_IP>
+<% end %>
   port: <%= p('server.port')%>
 
 
@@ -86,7 +89,12 @@ eureka:
     <% end %>
       registry-fetch-interval-seconds: 5
   instance:
+  <% if p('paastaType') == 'sidecar' && p('portalType') == 'app' %>
+    hostname: ${server.ip}
+    instanceId: ${server.ip}:<%= p('spring.application.name')%>:<%= p('server.port')%>
+  <% else %>
     hostname: ${spring.cloud.client.hostname}
+  <% end %>
     lease-expiration-duration-in-seconds: 5
     lease-renewal-interval-in-seconds: 10
 
@@ -94,7 +102,7 @@ eureka:
 # InfluxDB Access Info
 influxdb:
   ip: <%= p('influxdb.ip')%>
-<% if p('influxdb.https.enabled') %>  
+<% if p('influxdb.https.enabled') %>
   url: https://<%= p('influxdb.ip')%>:<%= p('influxdb.port')%>
 <% else %>
   url: http://<%= p('influxdb.ip')%>:<%= p('influxdb.port')%>

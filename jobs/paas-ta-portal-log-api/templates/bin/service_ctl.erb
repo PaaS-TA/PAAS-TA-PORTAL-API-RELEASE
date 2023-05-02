@@ -6,7 +6,7 @@ JOB_DIR="/var/vcap/jobs/${JOB_NAME}"
 JOB_CONFIG="${JOB_DIR}/data/application.yml"
 PKG_DIR="/var/vcap/packages/${JOB_NAME}"
 JAVA_DIR="/var/vcap/packages/java"
-
+SERVER_IP=$(hostname -I | tr -d ' ')
 
 export JOB_NAME
 source /var/vcap/jobs/${JOB_NAME}/helpers/ctl_setup.sh $JOB_NAME
@@ -32,6 +32,10 @@ echo "Starting 6 :: JAVA_DIR :: $JAVA_DIR"
 source ${JOB_DIR}/bin/pre_start
 <% end %>
 
+<% if p('paastaType') == 'sidecar' && p('portalType') == 'app' %>
+sed -i "s/<SERVER_IP>/${SERVER_IP}/" ${JOB_CONFIG}
+<% end %>
+
 exec $JAVA_DIR/bin/java -cp "${PKG_DIR}/${JOB_NAME}.jar" -Dspring.profiles.active=<%= p('spring.profiles.active')%> <%= p('java_opts')%> -Dspring.config.location=${JOB_CONFIG} org.springframework.boot.loader.JarLauncher \
 >>$LOG_DIR/$JOB_NAME.stdout.log \
 2>>$LOG_DIR/$JOB_NAME.stderr.log &
@@ -54,4 +58,3 @@ echo "Usage: service_ctl {start|stop}"
 
 esac
 exit 0
-

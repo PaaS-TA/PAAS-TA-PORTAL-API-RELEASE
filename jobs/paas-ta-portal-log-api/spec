@@ -35,6 +35,9 @@ properties:
   server.port:
     description: 'Enter the Service Port'
     default: '2230'
+  paastaType:
+    description: 'Please enter PaaS-TA deploy type.'
+    default: 'ap'
   portalType:
     description: 'Please enter PaaS-TA Portal deploy type.'
     default: 'vm'
@@ -104,3 +107,9 @@ properties:
   influxdb.https.enabled:
     description: 'InfluxDB enabled HTTPS'
     default: false
+  influxdb.ssl.keyPath:
+    description: 'InfluxDB ssl key path'
+    default: '/var/vcap/jobs/paas-ta-portal-log-api/data'
+  influxdb.ssl.password:
+    description: 'InfluxDB ssl key password'
+    default: 'paasta2022'
