@@ -114,3 +114,5 @@ influxdb:
   retention-policy: autogen
   limit: <%= p('influxdb.limit')%>
   httpsEnabled: <%= p('influxdb.https.enabled')%>
+  sslKeyPath: <%= p('influxdb.ssl.keyPath')%>
+  sslPassword: <%= p('influxdb.ssl.password')%>
