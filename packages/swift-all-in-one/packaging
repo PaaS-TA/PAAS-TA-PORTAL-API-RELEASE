@@ -2,10 +2,10 @@
 set -e
 
 PACKAGE_NAME=swift-all-in-one
-SWIFT_VERSION=2.23.2
+SWIFT_VERSION=2.31.1
 
 tar -zxvf ${PACKAGE_NAME}/swift-${SWIFT_VERSION}.tar.gz
-tar -zxvf ${PACKAGE_NAME}/swift-${SWIFT_VERSION}-bionic-dependencies.tar.gz
+mv swift-${SWIFT_VERSION} swift
 rm -r ${BOSH_COMPILE_TARGET}/${PACKAGE_NAME}
 cp -r ${BOSH_COMPILE_TARGET}/* ${BOSH_INSTALL_TARGET}/.
 
