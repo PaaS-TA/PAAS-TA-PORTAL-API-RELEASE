@@ -3,9 +3,7 @@ name: paas-ta-portal-log-api
 
 templates:
   bin/service_ctl.erb: bin/service_ctl
-  bin/pre_start.erb: bin/pre_start
   bin/monit_debugger: bin/monit_debugger
-  data/private_key.pem.erb: data/private_key.pem
   data/properties.sh: data/properties.sh
   data/application.yml.erb: data/application.yml
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
@@ -21,9 +19,6 @@ consumes:
   - name: paas-ta-portal-registration-link
     type: paas-ta-portal-registration
     optional: true
-  - name: influxdb
-    type: influxdb
-    optional: true
 
 properties:
   java_opts:
@@ -35,9 +30,6 @@ properties:
   server.port:
     description: 'Enter the Service Port'
     default: '2230'
-  paastaType:
-    description: 'Please enter PaaS-TA deploy type.'
-    default: 'ap'
   portalType:
     description: 'Please enter PaaS-TA Portal deploy type.'
     default: 'vm'
@@ -107,9 +99,3 @@ properties:
   influxdb.https.enabled:
     description: 'InfluxDB enabled HTTPS'
     default: false
-  influxdb.ssl.keyPath:
-    description: 'InfluxDB ssl key path'
-    default: '/var/vcap/jobs/paas-ta-portal-log-api/data'
-  influxdb.ssl.password:
-    description: 'InfluxDB ssl key password'
-    default: 'paasta2022'
