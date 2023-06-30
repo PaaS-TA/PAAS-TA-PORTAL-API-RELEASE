@@ -4,5 +4,4 @@ name: swift-all-in-one
 dependencies:
 
 files:
-  - swift-all-in-one/swift-2.23.2.tar.gz
-  - swift-all-in-one/swift-2.23.2-bionic-dependencies.tar.gz
+  - swift-all-in-one/swift-2.31.1.tar.gz

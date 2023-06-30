@@ -34,10 +34,13 @@ sed -i "s/RSYNC_ENABLE=false/RSYNC_ENABLE=true/" /etc/default/rsync
 cp -r /var/vcap/packages/swift-all-in-one/swift/doc/saio/swift/* /etc/swift/.
 ## paasta-swift setting start
 rm /etc/swift/account-server/*
+rm /etc/swift/account-server.conf
 cp /var/vcap/jobs/binary_storage/config/swift/account-server-1.conf /etc/swift/account-server/1.conf
 rm /etc/swift/container-server/*
+rm /etc/swift/container-server.conf
 cp /var/vcap/jobs/binary_storage/config/swift/container-server-1.conf /etc/swift/container-server/1.conf
 rm /etc/swift/object-server/*
+rm /etc/swift/object-server.conf
 cp /var/vcap/jobs/binary_storage/config/swift/object-server-1.conf /etc/swift/object-server/1.conf
 rm /etc/swift/proxy-server.conf
 cp /var/vcap/jobs/binary_storage/config/swift/proxy-server.conf /etc/swift/proxy-server.conf
