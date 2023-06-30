@@ -20,21 +20,51 @@ if [ ! -d "$DATA_DIR" ]; then
 
   mkdir -p /etc/swift
   # install deb files
-  bash $JOB_DIR/helper/install_deb.sh swift-all-in-one
+  apt-get update -q \
+    && apt-get --no-install-recommends install -yq \
+        software-properties-common \
+    && add-apt-repository -y cloud-archive:zed
+  apt-get update -q \
+    && apt-get upgrade -yq -o Dpkg::Options::="--force-confold" \
+    && apt-get --no-install-recommends install -yq \
+        apache2 \
+        openstack-release \
+        keystone \
+        swift \
+        swift-proxy \
+        swift-account \
+        swift-container \
+        swift-object \
+        memcached \
+        xfsprogs \
+        rsync \
+        rsyslog \
+        sudo \
+        python3-keystonemiddleware \
+        python3-openstackclient \
+        python3-keystoneclient \
+        python3-swiftclient \
+        curl \
+        httpie \
+        jq \
+        vim-tiny \
+        python3-pip
+
+
 
   echo "------pymysql start----------"
   dpkg -r --force-all python3-pymysql
-  pip install --no-index --find-links=$WHEEL_DIR PyNaCl
-  pip install --no-index --find-links=$WHEEL_DIR PyMySQL[ed25519]
+  pip3 install PyNaCl
+  pip3 install PyMySQL[ed25519]
   echo "------pymysql end----------"
 
   # insatll openstack-swift dependencies
-  pip install --no-index --find-links=$WHEEL_DIR -r $SWIFT_PKG_DIR/requirements.txt
+  pip3 install -r $SWIFT_PKG_DIR/requirements.txt
   echo "---------------------------------------------Install Files End"
 
   # install openstack-swift
   cd $SWIFT_PKG_DIR
-  python setup.py develop
+  python3 setup.py develop
 
 
   # swift setup

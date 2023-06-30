@@ -3,9 +3,7 @@ name: paas-ta-portal-log-api
 
 templates:
   bin/service_ctl.erb: bin/service_ctl
-  bin/pre_start.erb: bin/pre_start
   bin/monit_debugger: bin/monit_debugger
-  data/private_key.pem.erb: data/private_key.pem
   data/properties.sh: data/properties.sh
   data/application.yml.erb: data/application.yml
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
@@ -20,9 +18,6 @@ provides:
 consumes:
   - name: paas-ta-portal-registration-link
     type: paas-ta-portal-registration
-    optional: true
-  - name: influxdb
-    type: influxdb
     optional: true
 
 properties:

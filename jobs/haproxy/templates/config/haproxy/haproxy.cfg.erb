@@ -62,19 +62,6 @@ mode tcp
 <% end %>
 
 
-listen logapi-in
-bind *:5555
-mode tcp
-<% link("paas-ta-portal-log-api-link").instances.map do |instance| %>
-  server server-<%= instance.index %> <%= instance.address %>:5555
-<% end %>
-
-listen logapi-in-container
-bind *:1024
-mode tcp
-<% link("paas-ta-portal-log-api-link").instances.map do |instance| %>
-  server server-<%= instance.index %> <%= instance.address %>:5555
-<% end %>
 
 # IP:Port in redirect setting - Start
 

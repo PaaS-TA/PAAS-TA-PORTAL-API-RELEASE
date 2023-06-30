@@ -23,8 +23,6 @@ consumes:
     type: paas-ta-portal-gateway
   - name: mariadb-link
     type: mariadb
-  - name: paas-ta-portal-log-api-link
-    type: paas-ta-portal-log-api
 
 properties:
   infra.admin.enable:
