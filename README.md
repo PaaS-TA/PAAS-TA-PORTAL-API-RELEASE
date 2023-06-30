@@ -54,7 +54,7 @@
   - Download & Copy "source files" into the src directory
     ```
     ## download source files
-    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/rNbfzGFmstdLaHy/download
+    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/LjkkHkazsQsBALR/download
 
     ## unzip download source files
     $ unzip src.zip
@@ -85,8 +85,7 @@
       │   └── Python-3.6.9.tgz
       └── swift-all-in-one
           └── README.txt ( dependencies : apache2 2.4.57 )
-          └── swift-2.23.2.tar.gz
-          └── swift-2.23.2-bionic-dependencies.tar.gz
+          └── swift-2.31.1.tar.gz
 
      ----------------------------------------------------------------------------------------------------
      ### CF CLI를 이용한 cloudfoundry container 배포시, 사용하지 않는 source files을 지우고 release를 생성할 수 있다.(Option)
@@ -99,8 +98,7 @@
        ├── python
        │   └── Python-3.6.9.tgz
        └── swift-all-in-one
-           └── swift-2.23.2.tar.gz
-           └── swift-2.23.2-bionic-dependencies.tar.gz
+           └── swift-2.31.1.tar.gz
      ----------------------------------------------------------------------------------------------------
     ```
   - Create PaaS-TA Portal API Release
