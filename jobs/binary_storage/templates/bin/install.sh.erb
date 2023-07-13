@@ -3,7 +3,12 @@
 set -e pipefail
 
 DATA_DIR=/var/vcap/store/srv
+arch=$(uname -m)
 
+if [ "$arch" == "x86_64" ];then
+	export GNUTLS_CPUID_OVERRIDE=0x1 
+fi
+echo "`date` arch=$arch GNUTLS_CPUID_OVERRIDE=$GNUTLS_CPUID_OVERRIDE="
 
 if [ ! -d "$DATA_DIR" ]; then
   echo "---------------------------------------------Install Files Start"
@@ -19,6 +24,17 @@ if [ ! -d "$DATA_DIR" ]; then
   chmod 771 /var/log
 
   mkdir -p /etc/swift
+
+  while :
+  do
+        if [ `(ps -ef | grep pre-start | grep mariadb | grep -v grep | wc -l)` -eq 0 ]; then
+                echo "`date` mariadb/pre-start end"  
+                break
+        fi
+        echo "`date` sleep 10"
+        sleep 10
+  done
+
   # install deb files
   apt-get update -q \
     && apt-get --no-install-recommends install -yq \
@@ -49,6 +65,10 @@ if [ ! -d "$DATA_DIR" ]; then
         jq \
         vim-tiny \
         python3-pip
+
+  #echo "------dpkg --configure start----------"
+  #dpkg --configure -a 
+  #echo "------dpkg --configure end----------"
 
   echo "------pymysql start----------"
   dpkg -r --force-all python3-pymysql
