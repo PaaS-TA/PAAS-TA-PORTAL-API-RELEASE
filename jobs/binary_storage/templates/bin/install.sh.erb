@@ -3,12 +3,10 @@
 set -e pipefail
 
 DATA_DIR=/var/vcap/store/srv
-arch=$(uname -m)
 
-if [ "$arch" == "x86_64" ];then
-	export GNUTLS_CPUID_OVERRIDE=0x1 
-fi
-echo "`date` arch=$arch GNUTLS_CPUID_OVERRIDE=$GNUTLS_CPUID_OVERRIDE="
+export GNUTLS_CPUID_OVERRIDE=0x1
+
+echo "`date` GNUTLS_CPUID_OVERRIDE=$GNUTLS_CPUID_OVERRIDE="
 
 if [ ! -d "$DATA_DIR" ]; then
   echo "---------------------------------------------Install Files Start"
