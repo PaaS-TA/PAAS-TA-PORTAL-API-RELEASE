@@ -3,7 +3,9 @@
 set -e pipefail
 
 DATA_DIR=/var/vcap/store/srv
+arch=$(uname -m)
 
+export GNUTLS_CPUID_OVERRIDE=0x1 
 
 if [ ! -d "$DATA_DIR" ]; then
   echo "---------------------------------------------Install Files Start"
