@@ -3,7 +3,6 @@
 set -e pipefail
 
 DATA_DIR=/var/vcap/store/srv
-arch=$(uname -m)
 
 export GNUTLS_CPUID_OVERRIDE=0x1 
 
@@ -21,15 +20,30 @@ if [ ! -d "$DATA_DIR" ]; then
   chmod 771 /var/log
 
   mkdir -p /etc/swift
+
   # install deb files
-  apt-get update -q \
-    && apt-get --no-install-recommends install -yq \
-        software-properties-common \
-    && add-apt-repository -y cloud-archive:zed
-  apt-get update -q \
-    && apt-get upgrade -yq -o Dpkg::Options::="--force-confold" \
-    && apt-get --no-install-recommends install -yq \
-        apache2 \
+  add-apt-repository ppa:ondrej/apache2 -y
+
+  #apt update -q
+  apt --no-install-recommends install -yq software-properties-common 
+  add-apt-repository -y cloud-archive:zed
+
+  apt update -q 
+
+  echo "linux-generic-hwe-22.04 hold" | dpkg --set-selections
+  echo "linux-headers-generic-hwe-22.04 hold" | dpkg --set-selections
+  echo "linux-image-generic-hwe-22.04 hold" | dpkg --set-selections
+  
+  echo "initramfs-tools-bin hold" | dpkg --set-selections  
+  echo "initramfs-tools-core hold" | dpkg --set-selections
+  echo "initramfs-tools hold" | dpkg --set-selections
+
+  echo "linux-firmware hold" | dpkg --set-selections
+
+  apt upgrade -yq -o Dpkg::Options::="--force-confold" 
+
+  apt --no-install-recommends install -yq \
+        apache2=2.4.57-1+ubuntu22.04.1+deb.sury.org+1 \
         openstack-release \
         keystone \
         swift \
